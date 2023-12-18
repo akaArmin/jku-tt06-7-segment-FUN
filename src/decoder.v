@@ -35,7 +35,7 @@ module seg7 (
 endmodule
 
 
-module ani4(
+module ani0(
     input wire [3:0] counter, // ??
     output reg [6:0] segments
 );
@@ -139,7 +139,7 @@ module ani4(
 endmodule
 
 
-module ani4(
+module ani5(
     input wire [3:0] counter, // ??
     output reg [6:0] segments
 );

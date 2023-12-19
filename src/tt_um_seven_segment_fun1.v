@@ -28,16 +28,16 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     // FSM states
     reg [2:0]State;
-    localparam ST_IDLE = 2'b0000;
-    localparam ST_ANI1 = 2'b0001;
-    localparam ST_ANI2 = 2'b0010;
-    localparam ST_ANI3 = 2'b0011;
-    localparam ST_ANI4 = 2'b0100;
-    localparam ST_ANI5 = 2'b0101;
+    localparam ST_IDLE = 2'b000;
+    localparam ST_ANI1 = 2'b001;
+    localparam ST_ANI2 = 2'b010;
+    localparam ST_ANI3 = 2'b011;
+    localparam ST_ANI4 = 2'b100;
+    localparam ST_ANI5 = 2'b101;
 
     parameter STATE_BITS = 6;
     reg [STATE_BITS-1:0]currState = ST_IDLE;
-    reg [STATE_BITS-1:0]nextState;
+    reg [STATE_BITS-1:0]nextState = ST_IDLE;
 
     parameter counterMAX = 0;
   

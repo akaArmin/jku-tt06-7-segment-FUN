@@ -10,6 +10,8 @@ that can be driven / tested by the cocotb test.py
 module tb ();
 
     // this part dumps the trace to a vcd file that can be viewed with GTKWave
+    always #10 clk = ~clk;
+    
     initial begin
         $dumpfile ("tb.vcd");
         $dumpvars (0, tb);

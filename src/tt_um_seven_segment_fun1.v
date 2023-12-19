@@ -25,9 +25,19 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     // external clock is 10MHz, so need 24 bit counter ?? 50MHz ??
     reg [23:0] second_counter;
     reg [3:0] digit;
+    reg [3:0] counterMAX;
+
+    // Which animation is displayed
+    wire [2:0] animation;
+    assign animation = ui_in[7:5]; // hard switch, not pushbutton yet
+    reg [2:0] prev_ani;
+
+    // if external inputs are set then use that as compare count
+    // otherwise use the hard coded MAX_COUNT
+    wire [23:0] compare = ui_in == 0 ? MAX_COUNT: {6'b0, ui_in[7:0], 10'b0};
 
     // FSM states
-    // reg [2:0]State;
+    /* 
     localparam ST_IDLE = 3'b000;
     localparam ST_ANI1 = 3'b001;
     localparam ST_ANI2 = 3'b010;
@@ -38,69 +48,16 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     parameter STATE_BITS = 3;
     reg [STATE_BITS-1:0]currState = ST_IDLE;
     reg [STATE_BITS-1:0]nextState = ST_IDLE;
-
-    reg [3:0] counterMAX;
-  
-
-    // if external inputs are set then use that as compare count
-    // otherwise use the hard coded MAX_COUNT
-    wire [23:0] compare = ui_in == 0 ? MAX_COUNT: {6'b0, ui_in[7:0], 10'b0};
+    */
 
     always @(posedge clk) begin
         // if reset, set counter to 0
-        if (reset) begin
+        if (reset) begin // || (animation != prev_ani)
             second_counter <= 0;
             digit <= 0;
-            counterMAX <= 0;
-            currState <= ST_IDLE;
-            nextState <= ST_IDLE;
-            end 
-
-        else begin
-            currState <= nextState;
-            case (currState)
-                ST_IDLE:    // 0 to 9
-                    begin
-                        counterMAX <= 9;
-                        nextState <= ST_ANI1;
-                    end
-
-                ST_ANI1:
-                    begin
-                        counterMAX <= 6;
-                        nextState <= ST_ANI2;
-                    end
-
-                ST_ANI2:
-                    begin
-                        counterMAX <= 6;
-                        nextState <= ST_ANI3;
-                    end
-
-                ST_ANI3:
-                    begin
-                        counterMAX <= 6;
-                        nextState <= ST_ANI4;
-                    end
-                
-                ST_ANI4:
-                    begin
-                        counterMAX <= 5;
-                        nextState <= ST_ANI5;
-                    end
-
-                ST_ANI5:
-                    begin
-                        counterMAX <= 5;
-                        nextState <= ST_IDLE;
-                    end
-
-                default:
-                   begin
-                        currState <= ST_IDLE;
-                   end         
-            endcase
-
+            // currState <= ST_IDLE;
+            // nextState <= ST_IDLE;
+        end else begin
             // if up to 16e6
             if (second_counter == compare) begin
                 // reset
@@ -108,47 +65,55 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
                 // increment digit
                 digit <= digit + 1'b1;
-
+            
                 // only count from 0 to counterMAX
-                if (digit == counterMAX)
+                if (digit == counterMAX) // >= ? ist max noch inklodiert??
                     digit <= 0;
-
-            end else
+                    
+            end else begin
                 // increment counter
                 second_counter <= second_counter + 1'b1;
             end
-
-            // instantiate segment display
-            case (currState)
-                ST_IDLE:
-                    begin
-                        seg7 seg7 (.counter(digit), .segments(led_out));
-                    end
-                ST_ANI1:
-                    begin
-                        ani1 ani1(.counter(digit), .segments(led_out));
-                    end
-                ST_ANI2:
-                    begin
-                        ani2 ani2(.counter(digit), .segments(led_out));
-                    end
-                ST_ANI3:
-                    begin
-                        ani3 ani3(.counter(digit), .segments(led_out));
-                    end        
-                ST_ANI4:
-                    begin
-                        ani4 ani4(.counter(digit), .segments(led_out));
-                    end    
-                ST_ANI5:
-                    begin
-                        ani5 ani5(.counter(digit), .segments(led_out));
-                    end    
-                default:
-                    begin
-                        seg7 seg7(.counter(digit), .segments(led_out));
-                    end            
-            endcase 
+            prev_ani <= animation; // ? cycles net through?
     end
+
+    // instantiate segment display
+    seg7 seg7 (.counter(digit), .animation(animation), .segments(led_out));
+
+    changing changing(.animation(animation), .limit(counterMAX)); // extra file, wegen durchlaufen?
+/*
+    always @(*) begin // when button
+        currState <= nextState;
+        case (currState)
+            ST_IDLE: begin
+                    counterMAX <= 9;
+                    nextState <= ST_ANI1;
+                end
+            ST_ANI1: begin
+                    counterMAX <= 6;
+                    nextState <= ST_ANI2;
+                end
+            ST_ANI2: begin
+                    counterMAX <= 6;
+                    nextState <= ST_ANI3;
+                end
+            ST_ANI3: begin
+                    counterMAX <= 6;
+                    nextState <= ST_ANI4;
+                end
+            ST_ANI4: begin
+                    counterMAX <= 5;
+                    nextState <= ST_ANI5;
+                end
+            ST_ANI5: begin
+                    counterMAX <= 5;
+                    nextState <= ST_IDLE;
+                end
+            default: begin
+                    currState <= ST_IDLE;
+                end         
+        endcase
+    end
+*/
     
 endmodule

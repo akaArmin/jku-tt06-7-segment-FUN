@@ -116,6 +116,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
                 // increment counter
                 second_counter <= second_counter + 1'b1;
         end
+    end
     
         // instantiate segment display
         case (currState)
@@ -148,6 +149,5 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
                     seg7 seg7(.counter(digit), .segments(led_out));
                 end            
         endcase
-    end
     
 endmodule

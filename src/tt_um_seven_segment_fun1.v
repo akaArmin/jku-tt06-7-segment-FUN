@@ -69,16 +69,17 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
                 // only count from 0 to counterMAX
                 if (digit == counterMAX) // >= ? ist max noch inklodiert??
                     digit <= 0;
-                    
+
             end else begin
                 // increment counter
                 second_counter <= second_counter + 1'b1;
             end
             prev_ani <= animation; // ? cycles net through?
+        end
     end
 
     // instantiate segment display
-    seg7 seg7 (.counter(digit), .animation(animation), .segments(led_out));
+    seg7 seg7(.counter(digit), .animation(animation), .segments(led_out));
 
     changing changing(.animation(animation), .limit(counterMAX)); // extra file, wegen durchlaufen?
 /*

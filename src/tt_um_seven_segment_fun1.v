@@ -52,7 +52,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     always @(posedge clk) begin
         // if reset, set counter to 0
-        if (reset) begin // || (animation != prev_ani)
+        if (reset || (animation != prev_ani)) begin // || (animation != prev_ani)
             second_counter <= 0;
             digit <= 0;
             // currState <= ST_IDLE;

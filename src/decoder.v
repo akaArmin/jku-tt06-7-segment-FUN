@@ -62,7 +62,7 @@ module seg7 (
                 default:
                         segments = 7'b0000000;
                 endcase
-
+            /*
             3: //
                 case(counter)
                     //                7654321
@@ -102,7 +102,7 @@ module seg7 (
                 default:
                         segments = 7'b0000000;
                 endcase
-
+            */
             default:    
                 segments = 7'b0000000;
         endcase

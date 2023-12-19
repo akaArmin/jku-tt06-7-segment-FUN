@@ -124,7 +124,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
         case (currState)
             ST_IDLE:
                 begin
-                    seg7 seg7(.counter(digit), .segments(led_out));
+                    seg7 seg7 (.counter(digit), .segments(led_out));
                 end
             ST_ANI1:
                 begin

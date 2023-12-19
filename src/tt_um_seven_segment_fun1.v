@@ -27,19 +27,19 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     reg [3:0] digit;
 
     // FSM states
-    reg [2:0]State;
-    localparam ST_IDLE = 2'b000;
-    localparam ST_ANI1 = 2'b001;
-    localparam ST_ANI2 = 2'b010;
-    localparam ST_ANI3 = 2'b011;
-    localparam ST_ANI4 = 2'b100;
-    localparam ST_ANI5 = 2'b101;
+    // reg [2:0]State;
+    localparam ST_IDLE = 3'b000;
+    localparam ST_ANI1 = 3'b001;
+    localparam ST_ANI2 = 3'b010;
+    localparam ST_ANI3 = 3'b011;
+    localparam ST_ANI4 = 3'b100;
+    localparam ST_ANI5 = 3'b101;
 
     parameter STATE_BITS = 6;
     reg [STATE_BITS-1:0]currState = ST_IDLE;
     reg [STATE_BITS-1:0]nextState = ST_IDLE;
 
-    parameter counterMAX = 0;
+    reg [3:0] counterMAX;
   
 
     // if external inputs are set then use that as compare count
@@ -119,7 +119,8 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
         end
     end
 
-        // instantiate segment display
+    // instantiate segment display
+    always @* begin
         case (currState)
             ST_IDLE:
                 begin
@@ -150,5 +151,6 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
                     seg7 seg7(.counter(digit), .segments(led_out));
                 end            
         endcase
+    end
     
 endmodule

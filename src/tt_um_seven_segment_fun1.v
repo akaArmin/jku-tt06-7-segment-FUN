@@ -119,20 +119,20 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     
         // instantiate segment display
         case (currState)
-            ST_IDLE: seg7 seg7(.counter(digit), .segments(led_out));
-
-            ST_ANI1: ani1 ani1(.counter(digit), .segments(led_out));
-    
-            ST_ANI2: ani2 ani2(.counter(digit), .segments(led_out));
-
-            ST_ANI3: ani3 ani3(.counter(digit), .segments(led_out));
-        
-            ST_ANI4: ani4 ani4(.counter(digit), .segments(led_out));
-    
-            ST_ANI5: ani5 ani5(.counter(digit), .segments(led_out));
-    
-            default: seg7 seg7(.counter(digit), .segments(led_out));
-            
+            ST_IDLE: begin seg7 seg7(.counter(digit), .segments(led_out));
+            end
+            ST_ANI1: begin ani1 ani1(.counter(digit), .segments(led_out));
+            end
+            ST_ANI2: begin ani2 ani2(.counter(digit), .segments(led_out));
+            end
+            ST_ANI3: begin ani3 ani3(.counter(digit), .segments(led_out));
+            end        
+            ST_ANI4: begin ani4 ani4(.counter(digit), .segments(led_out));
+            end    
+            ST_ANI5: begin ani5 ani5(.counter(digit), .segments(led_out));
+            end    
+            default: begin seg7 seg7(.counter(digit), .segments(led_out));
+            end            
         endcase
     end
     

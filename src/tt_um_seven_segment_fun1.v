@@ -35,7 +35,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     localparam ST_ANI4 = 3'b100;
     localparam ST_ANI5 = 3'b101;
 
-    parameter STATE_BITS = 6;
+    parameter STATE_BITS = 3;
     reg [STATE_BITS-1:0]currState = ST_IDLE;
     reg [STATE_BITS-1:0]nextState = ST_IDLE;
 

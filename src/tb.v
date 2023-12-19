@@ -4,6 +4,10 @@
 /*
 this testbench just instantiates the module and makes some convenient wires
 that can be driven / tested by the cocotb test.py
+
+iverilog -g2005 -o FUN tb.v tt_um_seven_segment_fun_akaArmin.v decoder.v
+vvp FUN
+gtkwave tb.vcd
 */
 
 // testbench is controlled by test.py

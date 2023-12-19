@@ -32,6 +32,15 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     parameter counterMAX = 0;
 
+    // FSM states
+    reg [2:0]State;
+    localparam ST_IDLE = 2'b0000;
+    localparam ST_ANI1 = 2'b0001;
+    localparam ST_ANI2 = 2'b0010;
+    localparam ST_ANI3 = 2'b0011;
+    localparam ST_ANI4 = 2'b0100;
+    localparam ST_ANI5 = 2'b0101;
+
     // if external inputs are set then use that as compare count
     // otherwise use the hard coded MAX_COUNT
     wire [23:0] compare = ui_in == 0 ? MAX_COUNT: {6'b0, ui_in[7:0], 10'b0};

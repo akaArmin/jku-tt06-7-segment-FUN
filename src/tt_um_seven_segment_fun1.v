@@ -118,3 +118,4 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 */
     
 endmodule
+

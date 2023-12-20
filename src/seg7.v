@@ -149,6 +149,15 @@ module seg7 (
                 default:
                         segments = 7'b0000000;
                 endcase
+
+            10: // Blinking
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b1111111;
+                    1:  segments = 7'b0000000;
+                default:
+                        segments = 7'b0000000;
+                endcase
             
             default:    
                 segments = 7'b0000000;

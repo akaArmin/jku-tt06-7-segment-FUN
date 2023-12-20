@@ -13,7 +13,7 @@ module changing(
                 (animation == 4'b0111) ? 2 :  // ani7, Up & Dowen - Case Up & Dowen - Streight
                 (animation == 4'b1000) ? 4 :  // ani8, Up & Dowen - Streight
                 (animation == 4'b1001) ? 4 :  // ani9, H |-| idk
+                (animation == 4'b1010) ? 2 :  // ani10, blinking
                 5'b11111;  // default
 
 endmodule
-

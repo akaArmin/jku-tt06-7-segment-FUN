@@ -35,7 +35,26 @@ module seg7 (
                         segments = 7'b0000000;
                 endcase
 
-            1: //
+            1: // Armin Hartl
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b1110111;  // A
+                    1:  segments = 7'b1010000;  // r
+                    2:  segments = 7'b1010101;  // m
+                    3:  segments = 7'b0010001;  // i
+                    4:  segments = 7'b1010100;  // n
+                    5:  segments = 7'b0000000;  
+                    6:  segments = 7'b1110110;  // H
+                    7:  segments = 7'b1110111;  // A
+                    8:  segments = 7'b1010000;  // r
+                    9:  segments = 7'b1111000;  // T
+                    10:  segments = 7'b0111000; // L
+                    11:  segments = 7'b0000000;
+                default:
+                        segments = 7'b0000000;
+                endcase
+
+            2: // Around clockwise
                 case(counter)
                     //                7654321
                     0:  segments = 7'b0000001;
@@ -44,40 +63,24 @@ module seg7 (
                     3:  segments = 7'b0001000;
                     4:  segments = 7'b0010000;
                     5:  segments = 7'b0100000;
-                    6:  segments = 7'b1000000;
                 default:
                         segments = 7'b0000000;
                 endcase
 
-            2: //
+            3: // Around anti-clockwise
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b1000001;
-                    1:  segments = 7'b0100010;
-                    2:  segments = 7'b0010100;
-                    3:  segments = 7'b0001000;
-                    4:  segments = 7'b0010100;
-                    5:  segments = 7'b0100010;
-                    6:  segments = 7'b1000001;
-                default:
-                        segments = 7'b0000000;
-                endcase
-            
-            3: //
-                case(counter)
-                    //                7654321
-                    0:  segments = 7'b1000001;
-                    1:  segments = 7'b0100010;
-                    2:  segments = 7'b0010100;
+                    0:  segments = 7'b0000001;
+                    1:  segments = 7'b0100000;
+                    2:  segments = 7'b0010000;
                     3:  segments = 7'b0001000;
                     4:  segments = 7'b0000100;
                     5:  segments = 7'b0000010;
-                    6:  segments = 7'b0000001;
                 default:
                         segments = 7'b0000000;
                 endcase
 
-            4: //
+            4: // Pair do round anti-clockwise
                 case(counter)
                     //                7654321
                     0:  segments = 7'b0001100;
@@ -89,8 +92,8 @@ module seg7 (
                 default:
                         segments = 7'b0000000;
                 endcase
-
-            5: //
+            
+            5: // Pair do round clockwise
                 case(counter)
                     //                7654321
                     0:  segments = 7'b0001100;
@@ -102,30 +105,53 @@ module seg7 (
                 default:
                         segments = 7'b0000000;
                 endcase
+
+            6: // Pair switcher
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b1000001;
+                    1:  segments = 7'b0100010;
+                    2:  segments = 7'b0010100;
+                    3:  segments = 7'b1001000;
+                    4:  segments = 7'b0010100;
+                    5:  segments = 7'b0100010;
+                default:
+                        segments = 7'b0000000;
+                endcase
+
+            7: // Up & Dowen - Case
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0100011;
+                    1:  segments = 7'b0011100;
+                default:
+                        segments = 7'b0000000;
+                endcase
+
+            8: // Up & Dowen - Streight
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0001000;
+                    1:  segments = 7'b1000000;
+                    2:  segments = 7'b0000001;
+                    3:  segments = 7'b1000000;
+                default:
+                        segments = 7'b0000000;
+                endcase
+
+            9: // H |-| idk
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b1110110;  // H
+                    1:  segments = 7'b1001001;  
+                    2:  segments = 7'b1000000;
+                    3:  segments = 7'b0001001;
+                default:
+                        segments = 7'b0000000;
+                endcase
             
             default:    
                 segments = 7'b0000000;
         endcase
     end
 endmodule
-
-
-/* module ani0(
-    input wire [3:0] counter,
-    output reg [6:0] segments
-);
-    always @(*) begin
-        case(counter)
-            //                7654321
-            0:  segments = 7'b0000000;
-            1:  segments = 7'b0000000;
-            2:  segments = 7'b0000000;
-            3:  segments = 7'b0000000;
-            4:  segments = 7'b0000000;
-            5:  segments = 7'b0000000;
-            6:  segments = 7'b0000000;
-	    default:
-                segments = 7'b0000000;
-        endcase
-    end
-endmodule */

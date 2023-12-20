@@ -25,7 +25,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     // external clock is 10MHz, so need 24 bit counter ?? 50MHz ??
     reg [23:0] second_counter;
     reg [3:0] digit;
-    reg [3:0] counterMAX;
+    wire [4:0] counterMAX;
 
     // Which animation is displayed
     wire [2:0] animation;

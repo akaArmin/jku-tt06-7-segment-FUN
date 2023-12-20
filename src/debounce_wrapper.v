@@ -8,7 +8,7 @@ module debounce_wrapper(
 );
 
     generate                        // Generate 5 debounce instances (This is one of the few good places to use a for loop in System Verilog)
-        genvar i;                   // Declare a generate variable, this is used to index the for loop to quickly instantiate multiple modules #(BE CAREFUL, it is easy to make mistakes with generate statements)
+        genvar i;                   // Declare a generate variable, this is used to index the for loop to quickly instantiate multiple modules
         for (i = 0; i < 5; i = i + 1) begin: debounce_instances
             // Instantiate the debounce module
             debounce #(25000000, 10) generic_debounce (

@@ -24,13 +24,13 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     // external clock is 10MHz, so need 24 bit counter ?? 50MHz ??
     reg [23:0] second_counter;
-    reg [3:0] digit;
+    reg [4:0] digit;
     wire [4:0] counterMAX;
 
     // Which animation is displayed
-    wire [2:0] animation;
+    wire [3:0] animation;
     assign animation = ui_in[7:5]; // hard switch, not pushbutton yet
-    reg [2:0] prev_ani;
+    reg [3:0] prev_ani;
 
     // if external inputs are set then use that as compare count
     // otherwise use the hard coded MAX_COUNT
@@ -52,11 +52,12 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     always @(posedge clk) begin
         // if reset, set counter to 0
-        if (reset || (animation != prev_ani)) begin // || (animation != prev_ani)
+        if (reset || (animation != prev_ani)) begin
             second_counter <= 0;
             digit <= 0;
             // currState <= ST_IDLE;
             // nextState <= ST_IDLE;
+
         end else begin
             // if up to 16e6
             if (second_counter == compare) begin
@@ -81,41 +82,6 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     // instantiate segment display
     seg7 seg7(.counter(digit), .animation(animation), .segments(led_out));
 
-    changing changing(.animation(animation), .limit(counterMAX)); // extra file, wegen durchlaufen?
-/*
-    always @(*) begin // when button
-        currState <= nextState;
-        case (currState)
-            ST_IDLE: begin
-                    counterMAX <= 9;
-                    nextState <= ST_ANI1;
-                end
-            ST_ANI1: begin
-                    counterMAX <= 6;
-                    nextState <= ST_ANI2;
-                end
-            ST_ANI2: begin
-                    counterMAX <= 6;
-                    nextState <= ST_ANI3;
-                end
-            ST_ANI3: begin
-                    counterMAX <= 6;
-                    nextState <= ST_ANI4;
-                end
-            ST_ANI4: begin
-                    counterMAX <= 5;
-                    nextState <= ST_ANI5;
-                end
-            ST_ANI5: begin
-                    counterMAX <= 5;
-                    nextState <= ST_IDLE;
-                end
-            default: begin
-                    currState <= ST_IDLE;
-                end         
-        endcase
-    end
-*/
+    changing changing(.animation(animation), .limit(counterMAX));
     
 endmodule
-

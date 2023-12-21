@@ -108,8 +108,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             prevState <= currState;
             currState <= nextState;
             nextState <= ST_ANI0;
-        end
-        if (debounced_btn2 && (prevState != ST_ANI0)) begin
+        end else if (debounced_btn2 && (prevState != ST_ANI0)) begin
             nextState <= currState;
             currState <= prevState;
             prevState <= prevState - 4'b0001;
@@ -124,9 +123,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     always @(posedge clk) begin
         if (debounced_btn3 && (compare <= comMax)) begin
             compare <= compare + comInc;
-        end
-
-        if (debounced_btn4 && (compare >= comMin)) begin
+        end else if (debounced_btn4 && (compare >= comMin)) begin
             compare <= compare - comInc;
         end
     end
@@ -137,9 +134,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             btn1_count <= btn1_count + 1;   // Increments count if button is pressed
         end else begin
             btn1_count <= 1'b0;             // Reset count if button is not pressed
-        end
-
-        if (btn1_count == 12'h1FF) begin
+        end else if (btn1_count == 12'h1FF) begin
             debounced_btn1 <= 1'b1;     // Debounced button
         end else begin
             debounced_btn1 <= 1'b0;
@@ -152,9 +147,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             btn2_count <= btn2_count + 1;   // Increments count if button is pressed
         end else begin
             btn2_count <= 1'b0;             // Reset count if button is not pressed
-        end
-
-        if (btn2_count == 12'h1FF) begin
+        end else if (btn2_count == 12'h1FF) begin
             debounced_btn2 <= 1'b1;     // Debounced button
         end else begin
             debounced_btn2 <= 1'b0;
@@ -167,9 +160,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             btn3_count <= btn3_count + 1;   // Increments count if button is pressed
         end else begin
             btn3_count <= 1'b0;             // Reset count if button is not pressed
-        end
-
-        if (btn3_count == 12'h1FF) begin
+        end else if (btn3_count == 12'h1FF) begin
             debounced_btn3 <= 1'b1;     // Debounced button
         end else begin
             debounced_btn3 <= 1'b0;
@@ -182,9 +173,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             btn4_count <= btn4_count + 1;   // Increments count if button is pressed
         end else begin
             btn4_count <= 1'b0;             // Reset count if button is not pressed
-        end
-
-        if (btn4_count == 12'h1FF) begin
+        end else if (btn4_count == 12'h1FF) begin
             debounced_btn4 <= 1'b1;     // Debounced button
         end else begin
             debounced_btn4 <= 1'b0;

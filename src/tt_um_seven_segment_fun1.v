@@ -75,7 +75,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     always @(posedge clk) begin
         // If reset, set counter to 0
-        if (reset || (currState != prevState)) begin
+        if (reset) begin
             second_counter <= 0;
             digit <= 0;
             currState <= ST_ANI0;

@@ -78,9 +78,6 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
         if (reset) begin
             second_counter <= 0;
             digit <= 0;
-            currState <= ST_ANI0;
-            nextState <= ST_ANI1;
-            prevState <= ST_ANI11;
 
         end else begin
             // If secound_counter equals the value of compare
@@ -100,7 +97,12 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     // Switching the states with debounced Button
     always @(posedge clk) begin
-        if (debounced_btn1) begin
+        if (reset) begin
+            currState <= ST_ANI0;
+            nextState <= ST_ANI1;
+            prevState <= ST_ANI11;
+            
+        end else if (debounced_btn1) begin
             if (nextState != ST_ANI11) begin
                 prevState <= currState;
                 currState <= nextState;

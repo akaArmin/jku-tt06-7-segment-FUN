@@ -15,6 +15,10 @@ module changing(
                 (animation == 4'b1001) ? 4 :  // ani9, H |-| idk
                 (animation == 4'b1010) ? 2 :  // ani10, blinking
                 (animation == 4'b1011) ? 2 :  // ani11, o & °
+                (animation == 4'b1100) ? 2 :  // ani12, right & left
+                (animation == 4'b1101) ? 2 :  // ani13, half H 1
+                (animation == 4'b1110) ? 2 :  // ani14, half H 2
+                (animation == 4'b1111) ? 4 :  // ani15, Cuircle down
                 5'b11111;  // default
 
 endmodule

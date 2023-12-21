@@ -61,6 +61,10 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     localparam ST_ANI9 = 4'b1001;
     localparam ST_ANI10 = 4'b1010;
     localparam ST_ANI11 = 4'b1011;
+    localparam ST_ANI12 = 4'b1100;
+    localparam ST_ANI13 = 4'b1101;
+    localparam ST_ANI14 = 4'b1110;
+    localparam ST_ANI15 = 4'b1111;
 
 
     parameter STATE_BITS = 4;
@@ -100,10 +104,10 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
         if (reset) begin
             currState <= ST_ANI0;
             nextState <= ST_ANI1;
-            prevState <= ST_ANI11;
-            
+            prevState <= ST_ANI15;
+
         end else if (debounced_btn1) begin
-            if (nextState != ST_ANI11) begin
+            if (nextState != ST_ANI15) begin
                 prevState <= currState;
                 currState <= nextState;
                 nextState <= nextState + 4'b0001;

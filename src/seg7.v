@@ -168,6 +168,44 @@ module seg7 (
                         segments = 7'b0000000;
                 endcase
             
+            12: // right & left
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000110;
+                    1:  segments = 7'b0110000;
+                default:
+                        segments = 7'b0000000;
+                endcase
+            
+            13: // half H 1
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b1010010;
+                    1:  segments = 7'b1100100;
+                default:
+                        segments = 7'b0000000;
+                endcase
+            
+            14: // half H 2
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b1010100;
+                    1:  segments = 7'b1100010;
+                default:
+                        segments = 7'b0000000;
+                endcase
+
+            15: // Cuircle down
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0001000;
+                    1:  segments = 7'b0000100;
+                    2:  segments = 7'b1000000;
+                    3:  segments = 7'b0010000;
+                default:
+                        segments = 7'b0000000;
+                endcase
+            
             default:    
                 segments = 7'b0000000;
         endcase

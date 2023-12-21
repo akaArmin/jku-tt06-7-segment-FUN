@@ -12,8 +12,8 @@
 */
 
 module seg7 (
-    input wire [3:0] counter,
-    input wire [2:0] animation,
+    input wire [4:0] counter,
+    input wire [3:0] animation,
     output reg [6:0] segments
 );
     always @(*) begin

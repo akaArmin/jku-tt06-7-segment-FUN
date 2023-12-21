@@ -1,5 +1,5 @@
 module changing(
-    input wire [2:0] animation,
+    input wire [3:0] animation,
     output wire [4:0] limit
 );
 
@@ -14,6 +14,7 @@ module changing(
                 (animation == 4'b1000) ? 4 :  // ani8, Up & Dowen - Streight
                 (animation == 4'b1001) ? 4 :  // ani9, H |-| idk
                 (animation == 4'b1010) ? 2 :  // ani10, blinking
+                (animation == 4'b1011) ? 2 :  // ani11, o & °
                 5'b11111;  // default
 
 endmodule

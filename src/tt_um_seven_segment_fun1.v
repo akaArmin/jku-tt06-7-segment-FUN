@@ -149,7 +149,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     // Debouncing - Button 2
     always @(posedge clk) begin
-        if (btn2_incAni == 1'b1) begin
+        if (btn2_decAni == 1'b1) begin
             btn2_count <= btn2_count + 1;   // Increments count if button is pressed
             if (btn2_count == 12'h1FF) begin
                 debounced_btn2 <= 1'b1;     // Debounced button
@@ -162,7 +162,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     // Debouncing - Button 3
     always @(posedge clk) begin
-        if (btn3_incAni == 1'b1) begin
+        if (btn3_incSpeed == 1'b1) begin
             btn3_count <= btn3_count + 1;   // Increments count if button is pressed
             if (btn3_count == 12'h1FF) begin
                 debounced_btn3 <= 1'b1;     // Debounced button
@@ -176,7 +176,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     // Debouncing - Button 4
     always @(posedge clk) begin
-        if (btn4_incAni == 1'b1) begin
+        if (btn4_decSpeed == 1'b1) begin
             btn4_count <= btn4_count + 1;   // Increments count if button is pressed
             if (btn4_count == 12'h1FF) begin
                 debounced_btn4 <= 1'b1;     // Debounced button

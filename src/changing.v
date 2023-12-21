@@ -26,15 +26,15 @@ module changing(
                 (animation == 5'b10100) ? 7 :   // ani20, Randome 3
                 (animation == 5'b10101) ? 7 :   // ani21, Randome 4
                 (animation == 5'b10110) ? 7 :   // ani22, Randome 5
-                (animation == 5'b10111) ? 3 :   // ani23,
-                (animation == 5'b11000) ? 3 :   // ani24,
-                (animation == 5'b11001) ? 3 :   // ani25,
-                (animation == 5'b11010) ? 3 :   // ani26,
+                (animation == 5'b10111) ? 4 :   // ani23, Cuircle up
+                (animation == 5'b11000) ? 16 :   // ani24, Randome+ 1
+                (animation == 5'b11001) ? 16 :   // ani25, Randome+ 2
+                (animation == 5'b11010) ? 16 :   // ani26, Randome+ 3
                 (animation == 5'b11011) ? 3 :   // ani27,
                 (animation == 5'b11100) ? 3 :   // ani28,
                 (animation == 5'b11101) ? 3 :   // ani29,
                 (animation == 5'b11110) ? 3 :   // ani30,
-                (animation == 5'b11111) ? 3 ;   // ani31,
+                (animation == 5'b11111) ? 32 :   // ani31, Randome++
                 5'b11111;  // default
 
 endmodule

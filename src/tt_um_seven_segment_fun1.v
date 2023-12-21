@@ -64,9 +64,9 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
 
     parameter STATE_BITS = 4;
-    reg [STATE_BITS-1:0]currState = ST_ANI0;
-    reg [STATE_BITS-1:0]nextState = ST_ANI0;
-    reg [STATE_BITS-1:0]prevState = ST_ANI0;
+    reg [STATE_BITS-1:0]currState;
+    reg [STATE_BITS-1:0]nextState;
+    reg [STATE_BITS-1:0]prevState;
 
     reg [23:0] compare = 10_000_000;  // Default 1 sek at 10MHz
     localparam comMax = 19_000_000;   // Maximum value for compare

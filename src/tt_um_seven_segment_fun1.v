@@ -11,75 +11,187 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-    wire reset = ! rst_n;
-    wire [6:0] led_out;
-    assign uo_out[6:0] = led_out;
-    assign uo_out[7] = 1'b0;
+    // Pin assignment
+    clk = io_in[0]                  // Input Clock -> 10MHz
+    wire reset = ! rst_n;           // Reset
+    wire btn1_incAni = io_in[1]      // Switch forward to the next Animation
+    wire btn2_decAni = io_in[2]      // Switch backwards to the previous Animation
+    wire btn3_incSpeed = io_in[3]    // Increase the speed of the Animation
+    wire btn4_decSpeed = io_in[4]    // Decrease the speed of the Animation
 
-    // use bidirectionals as outputs
+
+    reg debounced_btn1;     // Debounce register Button 1
+    reg debounced_btn2;     // Debounce register Button 2
+    reg debounced_btn3;     // Debounce register Button 3
+    reg debounced_btn4;     // Debounce register Button 4
+
+    reg [11:0] btn1_count = 12'h000;    // Initializing a count for Button 1
+    reg [11:0] btn2_count = 12'h000;    // Initializing a count for Button 2
+    reg [11:0] btn3_count = 12'h000;    // Initializing a count for Button 3
+    reg [11:0] btn4_count = 12'h000;    // Initializing a count for Button 4
+   
+    wire [6:0] led_out;             // 7-Segment output
+    assign uo_out[6:0] = led_out;   // Assign Pins
+    assign uo_out[7] = 1'b0;        // Default set to low
+
+    // Use bidirectionals as outputs
     assign uio_oe = 8'b11111111;
 
-    // put bottom 8 bits of second counter out on the bidirectional gpio
+    // Put bottom 8 bits of second counter out on the bidirectional gpio
     assign uio_out = second_counter[7:0];
 
-    // external clock is 10MHz, so need 24 bit counter ?? 50MHz ??
+    // External clock is 10MHz, so need 24 bit counter
     reg [23:0] second_counter;
     reg [4:0] digit;
     wire [4:0] counterMAX;
 
     // Which animation is displayed
-    wire [3:0] animation;
-    assign animation = ui_in[7:5]; // hard switch, not pushbutton yet
-    reg [3:0] prev_ani;
-
-    // if external inputs are set then use that as compare count
-    // otherwise use the hard coded MAX_COUNT
-    wire [23:0] compare = ui_in == 0 ? MAX_COUNT: {6'b0, ui_in[7:0], 10'b0};
-
+    wire [3:0] animation;       // Current Animation
+    
     // FSM states
-    /* 
-    localparam ST_IDLE = 3'b000;
-    localparam ST_ANI1 = 3'b001;
-    localparam ST_ANI2 = 3'b010;
-    localparam ST_ANI3 = 3'b011;
-    localparam ST_ANI4 = 3'b100;
-    localparam ST_ANI5 = 3'b101;
+    localparam ST_ANI0 = 4'b0000;
+    localparam ST_ANI1 = 4'b0001;
+    localparam ST_ANI2 = 4'b0010;
+    localparam ST_ANI3 = 4'b0011;
+    localparam ST_ANI4 = 4'b0100;
+    localparam ST_ANI5 = 4'b0101;
+    localparam ST_ANI6 = 4'b0110;
+    localparam ST_ANI7 = 4'b0111;
+    localparam ST_ANI8 = 4'b1000;
+    localparam ST_ANI9 = 4'b1001;
+    localparam ST_ANI10 = 4'b1010;
+    localparam ST_ANI11 = 4'b1011;
 
-    parameter STATE_BITS = 3;
-    reg [STATE_BITS-1:0]currState = ST_IDLE;
-    reg [STATE_BITS-1:0]nextState = ST_IDLE;
-    */
+
+    parameter STATE_BITS = 4;
+    reg [STATE_BITS-1:0]currState = ST_ANI0;
+    reg [STATE_BITS-1:0]nextState = ST_ANI0;
+    reg [STATE_BITS-1:0]prevState = ST_ANI0;
+
+    reg [23:0] compare = 10_000_000;  // Default 1 sek at 10MHz
+    localparam comMax = 19_000_000;   // Maximum value for compare
+    localparam comMin = 1_000_000;    // Minimum value for compare
+    localparam comInc = 1_000_000;    // Stepsize
 
     always @(posedge clk) begin
-        // if reset, set counter to 0
-        if (reset || (animation != prev_ani)) begin
+        // If reset, set counter to 0
+        if (reset || (animation != prevState)) begin
             second_counter <= 0;
             digit <= 0;
-            // currState <= ST_IDLE;
-            // nextState <= ST_IDLE;
+            currState <= ST_ANI0;
+            nextState <= ST_ANI1;
+            prevState <= ST_ANI11;
 
         end else begin
-            // if up to 16e6
+            // If secound_counter equals the value of compare
             if (second_counter == compare) begin
-                // reset
-                second_counter <= 0;
-
-                // increment digit
-                digit <= digit + 1'b1;
-            
-                // only count from 0 to counterMAX
-                if (digit == counterMAX) // >= ? ist max noch inklodiert??
+                second_counter <= 0;    // Reset the secound_counter
+                
+                digit <= digit + 1'b1;  // Increment digit
+                            
+                if (digit >= counterMAX)// Only count from 0 to counterMAX
                     digit <= 0;
 
             end else begin
-                // increment counter
-                second_counter <= second_counter + 1'b1;
+                second_counter <= second_counter + 1'b1; // Increment secound_counter
             end
-            prev_ani <= animation; // ? cycles net through ?
         end
     end
 
-    // instantiate segment display
+    // Switching the states with debounced Button
+    always @(posedge clk) begin
+        if (debounced_btn1 && (nextState != ST_ANI11)) begin
+            prevState <= currState;
+            currState <= nextState;
+            nextState <= nextState + 4'b0001;
+        end else begin
+            prevState <= currState;
+            currState <= nextState;
+            nextState <= ST_ANI0;
+        end
+        if (debounced_btn2 && (prevState != ST_ANI0)) begin
+            nextState <= currState;
+            currState <= prevState;
+            prevState <= prevState - 4'b0001;
+        end else begin
+            nextState <= currState;
+            currState <= prevState;
+            prevState <= ST_ANI11;
+        end
+    end
+
+    // Changing the speed with decounced button
+    always @(posedge clk) begin
+        if (debounced_btn3 && (compare <= comMax)) begin
+            compare <= compare + comInc;
+        end
+
+        if (debounced_btn4 && (compare >= comMin)) begin
+            compare <= compare - comInc;
+        end
+    end
+
+    // Debouncing - Button 1
+    always @(posedge clk) begin
+        if(btn1_incAni == 1'b1) begin
+            btn1_count <= btn1_count + 1;   // Increments count if button is pressed
+        end else begin
+            btn1_count <= 1'b0;             // Reset count if button is not pressed
+        end
+
+        if (btn1_count == 12'h1FF) begin
+            debounced_btn1 <= 1'b1;     // Debounced button
+        end else begin
+            debounced_btn1 <= 1'b0;
+        end
+    end
+
+    // Debouncing - Button 2
+    always @(posedge clk) begin
+        if(btn2_decAni) begin
+            btn2_count <= btn2_count + 1;   // Increments count if button is pressed
+        end else begin
+            btn2_count <= 1'b0;             // Reset count if button is not pressed
+        end
+
+        if (btn2_count == 12'h1FF) begin
+            debounced_btn2 <= 1'b1;     // Debounced button
+        end else begin
+            debounced_btn2 <= 1'b0;
+        end
+    end
+
+    // Debouncing - Button 3
+    always @(posedge clk) begin
+        if(btn3_incSpeed) begin
+            btn3_count <= btn3_count + 1;   // Increments count if button is pressed
+        end else begin
+            btn3_count <= 1'b0;             // Reset count if button is not pressed
+        end
+
+        if (btn3_count == 12'h1FF) begin
+            debounced_btn3 <= 1'b1;     // Debounced button
+        end else begin
+            debounced_btn3 <= 1'b0;
+        end
+    end
+
+    // Debouncing - Button 4
+    always @(posedge clk) begin
+        if(btn4_decSpeed) begin
+            btn4_count <= btn4_count + 1;   // Increments count if button is pressed
+        end else begin
+            btn4_count <= 1'b0;             // Reset count if button is not pressed
+        end
+
+        if (btn4_count == 12'h1FF) begin
+            debounced_btn4 <= 1'b1;     // Debounced button
+        end else begin
+            debounced_btn4 <= 1'b0;
+        end
+    end
+    
+    // Instantiate segment display
     seg7 seg7(.counter(digit), .animation(animation), .segments(led_out));
 
     changing changing(.animation(animation), .limit(counterMAX));

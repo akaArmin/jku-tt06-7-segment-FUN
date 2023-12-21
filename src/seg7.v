@@ -23,14 +23,14 @@ module seg7 (
                     //                7654321
                     0:  segments = 7'b0111111; // 0
                     1:  segments = 7'b0000110; // 1
-                    2:  segments = 7'b1011011;
-                    3:  segments = 7'b1001111;
-                    4:  segments = 7'b1100110;
-                    5:  segments = 7'b1101101;
-                    6:  segments = 7'b1111101;
-                    7:  segments = 7'b0000111;
-                    8:  segments = 7'b1111111;
-                    9:  segments = 7'b1101111;
+                    2:  segments = 7'b1011011; // 2
+                    3:  segments = 7'b1001111; // 3
+                    4:  segments = 7'b1100110; // 4
+                    5:  segments = 7'b1101101; // 5
+                    6:  segments = 7'b1111101; // 6
+                    7:  segments = 7'b0000111; // 7
+                    8:  segments = 7'b1111111; // 8
+                    9:  segments = 7'b1101111; // 9
                 default:
                         segments = 7'b0000000;
                 endcase

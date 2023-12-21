@@ -98,7 +98,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
         if (reset) begin
             second_counter <= 0;
             digit <= 0;
-            compare <= 10_000_000;
+            // compare <= 10_000_000;
 
         end else begin
             // If secound_counter equals the value of compare

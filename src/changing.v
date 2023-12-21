@@ -1,8 +1,8 @@
 module changing(
-    input wire [4:0] animation,
+    input wire [5:0] animation,
     output wire [4:0] limit
 );
-
+/*
     assign limit = (animation == 5'b00000) ? 10 :  // ani0, 0 -> 9
                 (animation == 5'b00001) ? 12 :  // ani1, Armin Hartl 
                 (animation == 5'b00010) ? 6 :   // ani2, Around clockwise
@@ -36,5 +36,59 @@ module changing(
                 (animation == 5'b11110) ? 11 :   // ani30, Birthday
                 (animation == 5'b11111) ? 32 :   // ani31, Randome++
                 5'b11111;  // default
+*/
+    assign limit = (animation == 6'b000000) ? 10 :  // ani0, 0 -> 9
+                (animation == 6'b000001) ? 12 :  // ani1, Armin Hartl 
+                (animation == 6'b000010) ? 6 :   // ani2, Around clockwise
+                (animation == 6'b000011) ? 6 :   // ani3, Around anti-clockwise
+                (animation == 6'b000100) ? 6 :   // ani4, Pair do round anti-clockwise
+                (animation == 6'b000101) ? 6 :   // ani5, Pair do round clockwise
+                (animation == 6'b000110) ? 6 :   // ani6, Pair switcher
+                (animation == 6'b000111) ? 2 :   // ani7, Up & Down - Case Up & Down - Straight
+                (animation == 6'b001000) ? 4 :   // ani8, Up & Down - Straight
+                (animation == 6'b001001) ? 4 :   // ani9, H |-| idk
+                (animation == 6'b001010) ? 2 :   // ani10, blinking
+                (animation == 6'b001011) ? 2 :   // ani11, o & °
+                (animation == 6'b001100) ? 2 :   // ani12, right & left
+                (animation == 6'b001101) ? 2 :   // ani13, half H 1
+                (animation == 6'b001110) ? 2 :   // ani14, half H 2
+                (animation == 6'b001111) ? 4 :   // ani15, Circle down
+                (animation == 6'b010000) ? 6 :   // ani16, Hello
+                (animation == 6'b010001) ? 2 :   // ani17, Schräg
+                (animation == 6'b010010) ? 7 :   // ani18, Random 1
+                (animation == 6'b010011) ? 7 :   // ani19, Random 2
+                (animation == 6'b010100) ? 7 :   // ani20, Random 3
+                (animation == 6'b010101) ? 7 :   // ani21, Random 4
+                (animation == 6'b010110) ? 7 :   // ani22, Random 5
+                (animation == 6'b010111) ? 4 :   // ani23, Circle up
+                (animation == 6'b011000) ? 16 :  // ani24, Random+ 1
+                (animation == 6'b011001) ? 16 :  // ani25, Random+ 2
+                (animation == 6'b011010) ? 16 :  // ani26, Random+ 3
+                (animation == 6'b011011) ? 16 :  // ani27, Random Numbers
+                (animation == 6'b011100) ? 32 :  // ani28, Random Numbers+
+                (animation == 6'b011101) ? 5 :   // ani29, Pulse
+                (animation == 6'b011110) ? 11 :  // ani30, Birthday
+                (animation == 6'b011111) ? 32 :  // ani31, Random++
+               // New animations ST_ANI32 to ST_ANI50
+                (animation == 6'b100000) ? 3 :   // ani32
+                (animation == 6'b100001) ? 3 :   // ani33
+                (animation == 6'b100010) ? 3 :   // ani34
+                (animation == 6'b100011) ? 3 :   // ani35
+                (animation == 6'b100100) ? 3 :   // ani36
+                (animation == 6'b100101) ? 3 :   // ani37
+                (animation == 6'b100110) ? 3 :   // ani38
+                (animation == 6'b100111) ? 3 :   // ani39
+                (animation == 6'b101000) ? 3 :   // ani40
+                (animation == 6'b101001) ? 3 :   // ani41
+                (animation == 6'b101010) ? 3 :   // ani42
+                (animation == 6'b101011) ? 3 :   // ani43
+                (animation == 6'b101100) ? 3 :   // ani44
+                (animation == 6'b101101) ? 3 :   // ani45
+                (animation == 6'b101110) ? 3 :   // ani46
+                (animation == 6'b101111) ? 3 :   // ani47
+                (animation == 6'b110000) ? 3 :   // ani48
+                (animation == 6'b110001) ? 3 :   // ani49
+                (animation == 6'b110010) ? 3 :   // ani50
+                6'b111111;  // default
 
 endmodule

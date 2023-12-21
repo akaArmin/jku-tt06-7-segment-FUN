@@ -49,41 +49,60 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     //wire [3:0] animation;       // Current Animation
     
     // FSM states
-    localparam ST_ANI0  = 5'b00000;
-    localparam ST_ANI1  = 5'b00001;
-    localparam ST_ANI2  = 5'b00010;
-    localparam ST_ANI3  = 5'b00011;
-    localparam ST_ANI4  = 5'b00100;
-    localparam ST_ANI5  = 5'b00101;
-    localparam ST_ANI6  = 5'b00110;
-    localparam ST_ANI7  = 5'b00111;
-    localparam ST_ANI8  = 5'b01000;
-    localparam ST_ANI9  = 5'b01001;
-    localparam ST_ANI10 = 5'b01010;
-    localparam ST_ANI11 = 5'b01011;
-    localparam ST_ANI12 = 5'b01100;
-    localparam ST_ANI13 = 5'b01101;
-    localparam ST_ANI14 = 5'b01110;
-    localparam ST_ANI15 = 5'b01111;
-    localparam ST_ANI16 = 5'b10000;
-    localparam ST_ANI17 = 5'b10001;
-    localparam ST_ANI18 = 5'b10010;
-    localparam ST_ANI19 = 5'b10011;
-    localparam ST_ANI20 = 5'b10100;
-    localparam ST_ANI21 = 5'b10101;
-    localparam ST_ANI22 = 5'b10110;
-    localparam ST_ANI23 = 5'b10111;
-    localparam ST_ANI24 = 5'b11000;
-    localparam ST_ANI25 = 5'b11001;
-    localparam ST_ANI26 = 5'b11010;
-    localparam ST_ANI27 = 5'b11011;
-    localparam ST_ANI28 = 5'b11100;
-    localparam ST_ANI29 = 5'b11101;
-    localparam ST_ANI30 = 5'b11110;
-    localparam ST_ANI31 = 5'b11111;
+    localparam ST_ANI0   = 6'b000000;
+    localparam ST_ANI1   = 6'b000001;
+    localparam ST_ANI2   = 6'b000010;
+    localparam ST_ANI3   = 6'b000011;
+    localparam ST_ANI4   = 6'b000100;
+    localparam ST_ANI5   = 6'b000101;
+    localparam ST_ANI6   = 6'b000110;
+    localparam ST_ANI7   = 6'b000111;
+    localparam ST_ANI8   = 6'b001000;
+    localparam ST_ANI9   = 6'b001001;
+    localparam ST_ANI10  = 6'b001010;
+    localparam ST_ANI11  = 6'b001011;
+    localparam ST_ANI12  = 6'b001100;
+    localparam ST_ANI13  = 6'b001101;
+    localparam ST_ANI14  = 6'b001110;
+    localparam ST_ANI15  = 6'b001111;
+    localparam ST_ANI16  = 6'b010000;
+    localparam ST_ANI17  = 6'b010001;
+    localparam ST_ANI18  = 6'b010010;
+    localparam ST_ANI19  = 6'b010011;
+    localparam ST_ANI20  = 6'b010100;
+    localparam ST_ANI21  = 6'b010101;
+    localparam ST_ANI22  = 6'b010110;
+    localparam ST_ANI23  = 6'b010111;
+    localparam ST_ANI24  = 6'b011000;
+    localparam ST_ANI25  = 6'b011001;
+    localparam ST_ANI26  = 6'b011010;
+    localparam ST_ANI27  = 6'b011011;
+    localparam ST_ANI28  = 6'b011100;
+    localparam ST_ANI29  = 6'b011101;
+    localparam ST_ANI30  = 6'b011110;
+    localparam ST_ANI31  = 6'b011111;
+    localparam ST_ANI32  = 6'b100000;
+    localparam ST_ANI33  = 6'b100001;
+    localparam ST_ANI34  = 6'b100010;
+    localparam ST_ANI35  = 6'b100011;
+    localparam ST_ANI36  = 6'b100100;
+    localparam ST_ANI37  = 6'b100101;
+    localparam ST_ANI38  = 6'b100110;
+    localparam ST_ANI39  = 6'b100111;
+    localparam ST_ANI40  = 6'b101000;
+    localparam ST_ANI41  = 6'b101001;
+    localparam ST_ANI42  = 6'b101010;
+    localparam ST_ANI43  = 6'b101011;
+    localparam ST_ANI44  = 6'b101100;
+    localparam ST_ANI45  = 6'b101101;
+    localparam ST_ANI46  = 6'b101110;
+    localparam ST_ANI47  = 6'b101111;
+    localparam ST_ANI48  = 6'b110000;
+    localparam ST_ANI49  = 6'b110001;
+    localparam ST_ANI50  = 6'b110010;
 
 
-    parameter STATE_BITS = 5;
+    parameter STATE_BITS = 6;
     reg [STATE_BITS-1:0]currState;
     reg [STATE_BITS-1:0]nextState;
     reg [STATE_BITS-1:0]prevState;
@@ -121,14 +140,14 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
         if (reset) begin
             currState <= ST_ANI0;
             nextState <= ST_ANI1;
-            prevState <= ST_ANI31;
+            prevState <= ST_ANI50;
 
         end else if (debounced_btn1) begin
-            if (nextState != ST_ANI31) begin
+            if (nextState != ST_ANI50) begin
                 prevState <= currState;
                 currState <= nextState;
                 nextState <= nextState + 4'b0001;
-            end else begin // If nextState is ST_ANI31
+            end else begin // If nextState is ST_ANI50
                 prevState <= currState;
                 currState <= nextState;
                 nextState <= ST_ANI0;
@@ -141,7 +160,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             end else begin // If prevState is ST_ANI0
                 nextState <= currState;
                 currState <= prevState;
-                prevState <= ST_ANI31;
+                prevState <= ST_ANI50;
             end
         end
     end

@@ -30,10 +30,10 @@ module changing(
                 (animation == 5'b11000) ? 16 :   // ani24, Randome+ 1
                 (animation == 5'b11001) ? 16 :   // ani25, Randome+ 2
                 (animation == 5'b11010) ? 16 :   // ani26, Randome+ 3
-                (animation == 5'b11011) ? 1 :   // ani27,
-                (animation == 5'b11100) ? 1 :   // ani28,
-                (animation == 5'b11101) ? 1 :   // ani29,
-                (animation == 5'b11110) ? 1 :   // ani30,
+                (animation == 5'b11011) ? 16 :   // ani27, Randome Numbers
+                (animation == 5'b11100) ? 32 :   // ani28, Randome Numbers+
+                (animation == 5'b11101) ? 5 :   // ani29, Puls
+                (animation == 5'b11110) ? 11 :   // ani30, Birthday
                 (animation == 5'b11111) ? 32 :   // ani31, Randome++
                 5'b11111;  // default
 

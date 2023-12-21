@@ -378,34 +378,94 @@ module seg7 (
                         segments = 7'b0000000;
                 endcase
    
-            27: //
+            27: // Randome Numbers
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b1000000;
+                    0:  segments = 7'b1100110; // 4
+                    1:  segments = 7'b0111111; // 0
+                    2:  segments = 7'b1111111; // 8
+                    3:  segments = 7'b0000110; // 1
+                    4:  segments = 7'b1001111; // 3
+                    5:  segments = 7'b1101101; // 5
+                    6:  segments = 7'b0000111; // 7
+                    7:  segments = 7'b1101111; // 9
+                    8:  segments = 7'b1011011; // 2
+                    9:  segments = 7'b0111111; // 0
+                    10: segments = 7'b1101101; // 5
+                    11: segments = 7'b1111101; // 6
+                    12: segments = 7'b0000110; // 1
+                    13: segments = 7'b1100110; // 4
+                    14: segments = 7'b1001111; // 3
+                    15: segments = 7'b1111111; // 8
                     default:
                         segments = 7'b0000000;
                 endcase
    
-            28: //
+            28: // Randome Numbers+
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b1000000;
+                    0:  segments = 7'b0111111; // 0
+                    1:  segments = 7'b1100110; // 4
+                    2:  segments = 7'b1011011; // 2
+                    3:  segments = 7'b1001111; // 3
+                    4:  segments = 7'b1111111; // 8
+                    5:  segments = 7'b0000110; // 1
+                    6:  segments = 7'b1101101; // 5
+                    7:  segments = 7'b0000111; // 7
+                    8:  segments = 7'b1101111; // 9
+                    9:  segments = 7'b1111101; // 6
+                    10: segments = 7'b0111111; // 0
+                    11: segments = 7'b1100110; // 4
+                    12: segments = 7'b1011011; // 2
+                    13: segments = 7'b1001111; // 3
+                    14: segments = 7'b1111111; // 8
+                    15: segments = 7'b0000110; // 1
+                    16: segments = 7'b1101101; // 5
+                    17: segments = 7'b0000111; // 7
+                    18: segments = 7'b1101111; // 9
+                    19: segments = 7'b1111101; // 6
+                    20: segments = 7'b0111111; // 0
+                    21: segments = 7'b1100110; // 4
+                    22: segments = 7'b1011011; // 2
+                    23: segments = 7'b1001111; // 3
+                    24: segments = 7'b1111111; // 8
+                    25: segments = 7'b0000110; // 1
+                    26: segments = 7'b1101101; // 5
+                    27: segments = 7'b0000111; // 7
+                    28: segments = 7'b1101111; // 9
+                    29: segments = 7'b1111101; // 6
+                    30: segments = 7'b0111111; // 0
+                    31: segments = 7'b1100110; // 4
                     default:
                         segments = 7'b0000000;
                 endcase
    
-            29: //
+            29: // Puls
                 case(counter)
                     //                7654321
                     0:  segments = 7'b1000000;
+                    1:  segments = 7'b1110110;
+                    2:  segments = 7'b1111111;
+                    3:  segments = 7'b1110110;
+                    4:  segments = 7'b1000000;
                     default:
                         segments = 7'b0000000;
                 endcase
    
-            30: //
+            30: // Birthday
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b1000000;
+                    0:  segments = 7'b1011011; // 2
+                    1:  segments = 7'b0000110; // 1
+                    2:  segments = 7'b0001000; // _
+                    3:  segments = 7'b0111111; // 0
+                    4:  segments = 7'b1100110; // 4
+                    5:  segments = 7'b0001000; // _
+                    6:  segments = 7'b1011011; // 2
+                    7:  segments = 7'b0111111; // 0
+                    8:  segments = 7'b0111111; // 0
+                    9:  segments = 7'b0000110; // 1
+                    10: segments = 7'b0000000;
                     default:
                         segments = 7'b0000000;
                 endcase

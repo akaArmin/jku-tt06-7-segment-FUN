@@ -112,7 +112,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             end
         end
     end
-/*
+
     always @(posedge clk) begin
         if (debounced_btn2) begin
             if (prevState != ST_ANI0) begin
@@ -126,7 +126,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             end
         end
     end
-*/
+
 
     // Changing the speed with decounced button
     always @(posedge clk) begin

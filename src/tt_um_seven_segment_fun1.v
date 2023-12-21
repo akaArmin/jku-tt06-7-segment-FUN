@@ -46,7 +46,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     wire [4:0] counterMAX;
 
     // Which animation is displayed
-    wire [3:0] animation;       // Current Animation
+    //wire [3:0] animation;       // Current Animation
     
     // FSM states
     localparam ST_ANI0 = 4'b0000;
@@ -75,7 +75,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     always @(posedge clk) begin
         // If reset, set counter to 0
-        if (reset || (animation != prevState)) begin
+        if (reset || (currState != prevState)) begin
             second_counter <= 0;
             digit <= 0;
             currState <= ST_ANI0;
@@ -192,8 +192,8 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     end
     
     // Instantiate segment display
-    seg7 seg7(.counter(digit), .animation(animation), .segments(led_out));
+    seg7 seg7(.counter(digit), .animation(currState), .segments(led_out));
 
-    changing changing(.animation(animation), .limit(counterMAX));
+    changing changing(.animation(currState), .limit(counterMAX));
     
 endmodule

@@ -100,24 +100,29 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     // Switching the states with debounced Button
     always @(posedge clk) begin
-        if (debounced_btn1 && (nextState != ST_ANI11)) begin
-            prevState <= currState;
-            currState <= nextState;
-            nextState <= nextState + 4'b0001;
-        end else begin
-            prevState <= currState;
-            currState <= nextState;
-            nextState <= ST_ANI0;
-        end else if (debounced_btn2 && (prevState != ST_ANI0)) begin
-            nextState <= currState;
-            currState <= prevState;
-            prevState <= prevState - 4'b0001;
-        end else begin
-            nextState <= currState;
-            currState <= prevState;
-            prevState <= ST_ANI11;
+        if (debounced_btn1) begin
+            if (nextState != ST_ANI11) begin
+                prevState <= currState;
+                currState <= nextState;
+                nextState <= nextState + 4'b0001;
+            end else begin // If nextState is ST_ANI11
+                prevState <= currState;
+                currState <= nextState;
+                nextState <= ST_ANI0;
+            end
+        end else if (debounced_btn2) begin
+            if (prevState != ST_ANI0) begin
+                nextState <= currState;
+                currState <= prevState;
+                prevState <= prevState - 4'b0001;
+            end else begin // If prevState is ST_ANI0
+                nextState <= currState;
+                currState <= prevState;
+                prevState <= ST_ANI11;
+            end
         end
     end
+
 
     // Changing the speed with decounced button
     always @(posedge clk) begin
@@ -130,55 +135,58 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     // Debouncing - Button 1
     always @(posedge clk) begin
-        if(btn1_incAni == 1'b1) begin
+        if (btn1_incAni == 1'b1) begin
             btn1_count <= btn1_count + 1;   // Increments count if button is pressed
+            if (btn1_count == 12'h1FF) begin
+                debounced_btn1 <= 1'b1;     // Debounced button
+            end
         end else begin
             btn1_count <= 1'b0;             // Reset count if button is not pressed
-        end else if (btn1_count == 12'h1FF) begin
-            debounced_btn1 <= 1'b1;     // Debounced button
-        end else begin
-            debounced_btn1 <= 1'b0;
+            debounced_btn1 <= 1'b0;         // Reset debounced button if button is not pressed
         end
     end
 
+
     // Debouncing - Button 2
     always @(posedge clk) begin
-        if(btn2_decAni) begin
+        if (btn2_incAni == 1'b1) begin
             btn2_count <= btn2_count + 1;   // Increments count if button is pressed
+            if (btn2_count == 12'h1FF) begin
+                debounced_btn2 <= 1'b1;     // Debounced button
+            end
         end else begin
             btn2_count <= 1'b0;             // Reset count if button is not pressed
-        end else if (btn2_count == 12'h1FF) begin
-            debounced_btn2 <= 1'b1;     // Debounced button
-        end else begin
-            debounced_btn2 <= 1'b0;
+            debounced_btn2 <= 1'b0;         // Reset debounced button if button is not pressed
         end
     end
 
     // Debouncing - Button 3
     always @(posedge clk) begin
-        if(btn3_incSpeed) begin
+        if (btn3_incAni == 1'b1) begin
             btn3_count <= btn3_count + 1;   // Increments count if button is pressed
+            if (btn3_count == 12'h1FF) begin
+                debounced_btn3 <= 1'b1;     // Debounced button
+            end
         end else begin
             btn3_count <= 1'b0;             // Reset count if button is not pressed
-        end else if (btn3_count == 12'h1FF) begin
-            debounced_btn3 <= 1'b1;     // Debounced button
-        end else begin
-            debounced_btn3 <= 1'b0;
+            debounced_btn3 <= 1'b0;         // Reset debounced button if button is not pressed
         end
     end
 
+
     // Debouncing - Button 4
     always @(posedge clk) begin
-        if(btn4_decSpeed) begin
+        if (btn4_incAni == 1'b1) begin
             btn4_count <= btn4_count + 1;   // Increments count if button is pressed
+            if (btn4_count == 12'h1FF) begin
+                debounced_btn4 <= 1'b1;     // Debounced button
+            end
         end else begin
             btn4_count <= 1'b0;             // Reset count if button is not pressed
-        end else if (btn4_count == 12'h1FF) begin
-            debounced_btn4 <= 1'b1;     // Debounced button
-        end else begin
-            debounced_btn4 <= 1'b0;
+            debounced_btn4 <= 1'b0;         // Reset debounced button if button is not pressed
         end
     end
+
     
     // Instantiate segment display
     seg7 seg7(.counter(digit), .animation(currState), .segments(led_out));

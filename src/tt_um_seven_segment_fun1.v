@@ -12,12 +12,12 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 );
 
     // Pin assignment
-    // wire clk = io_in[0]              // Input Clock -> 10MHz
+    // wire clk = io_in[0]           // Input Clock -> 10MHz
     wire reset = ! rst_n;            // Reset
-    wire btn1_incAni = io_in[0]      // Switch forward to the next Animation
-    wire btn2_decAni = io_in[1]      // Switch backwards to the previous Animation
-    wire btn3_incSpeed = io_in[2]    // Increase the speed of the Animation
-    wire btn4_decSpeed = io_in[3]    // Decrease the speed of the Animation
+    wire btn1_incAni = ui_in[0]      // Switch forward to the next Animation
+    wire btn2_decAni = ui_in[1]      // Switch backwards to the previous Animation
+    wire btn3_incSpeed = ui_in[2]    // Increase the speed of the Animation
+    wire btn4_decSpeed = ui_in[3]    // Decrease the speed of the Animation
 
 
     reg debounced_btn1;     // Debounce register Button 1

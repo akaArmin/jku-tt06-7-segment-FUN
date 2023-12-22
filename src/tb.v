@@ -8,38 +8,34 @@ that can be driven / tested by the cocotb test.py
 iverilog -g2005 -o FUN tb.v tt_um_seven_segment_fun_akaArmin.v decoder.v
 vvp FUN
 gtkwave tb.vcd
-*/
 
-// testbench is controlled by test.py
-module tb (
-    input clk,
-    input btn1_incAni,
+input btn1_incAni,
     input btn2_decAni,
     input btn3_incSpeed,
     input btn4_decSpeed
-);
+   
+always #10 clk = ~clk;
+*/
 
-    // TB Signals
-
-
-    // Clock Generation -> ?? Hz
-    always #10 clk = ~clk;
+// testbench is controlled by test.py
+module tb ();
     
     initial begin
         $dumpfile ("tb.vcd");
         $dumpvars (0, tb);
         #1;
     end
-
-    // wire up the inputs and outputs
+   // wire up the inputs and outputs
     reg  clk;
     reg  rst_n;
     reg  ena;
     reg  [7:0] ui_in;
     reg  [7:0] uio_in;
 
-    wire [6:0] segments = uo_out[6:0];
-    
+    wire [7:0] uo_out;
+    wire [7:0] uio_out;
+    wire [7:0] uio_oe;
+
     tt_um_seven_segment_fun1 tt_um_seven_segment_fun1 (
     // include power ports for the Gate Level test
     `ifdef GL_TEST

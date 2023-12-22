@@ -740,8 +740,8 @@ module seg7 (
             51: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b0100010;
+                    1:  segments = 7'b0111001;
                     default:
                         segments = 7'b0000000;
                 endcase
@@ -749,8 +749,8 @@ module seg7 (
             52: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b0000001;
+                    1:  segments = 7'b1101111;
                     default:
                         segments = 7'b0000000;
                 endcase
@@ -758,8 +758,8 @@ module seg7 (
             53: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b1000000;
+                    1:  segments = 7'b0110011;
                     default:
                         segments = 7'b0000000;
                 endcase
@@ -767,8 +767,8 @@ module seg7 (
             54: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b0011000;
+                    1:  segments = 7'b1101110;
                     default:
                         segments = 7'b0000000;
                 endcase
@@ -776,8 +776,8 @@ module seg7 (
             55: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b0000110;
+                    1:  segments = 7'b1011101;
                     default:
                         segments = 7'b0000000;
                 endcase
@@ -785,8 +785,8 @@ module seg7 (
             56: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b0110000;
+                    1:  segments = 7'b1110111;
                     default:
                         segments = 7'b0000000;
                 endcase 
@@ -794,8 +794,8 @@ module seg7 (
             57: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b1100000;
+                    1:  segments = 7'b1110011;
                     default:
                         segments = 7'b0000000;
                 endcase 
@@ -803,8 +803,8 @@ module seg7 (
             58: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b0011110;
+                    1:  segments = 7'b1100111;
                     default:
                         segments = 7'b0000000;
                 endcase
@@ -812,8 +812,8 @@ module seg7 (
             59: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b1110000;
+                    1:  segments = 7'b1001111;
                     default:
                         segments = 7'b0000000;
                 endcase
@@ -821,8 +821,8 @@ module seg7 (
             60: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b0010000;
+                    1:  segments = 7'b0011111;
                     default:
                         segments = 7'b0000000;
                 endcase
@@ -830,8 +830,8 @@ module seg7 (
             61: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b0000010;
+                    1:  segments = 7'b1111001;
                     default:
                         segments = 7'b0000000;
                 endcase
@@ -839,8 +839,8 @@ module seg7 (
             62: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b0001000;
+                    1:  segments = 7'b1101111;
                     default:
                         segments = 7'b0000000;
                 endcase
@@ -848,8 +848,8 @@ module seg7 (
             63: // Puls
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b0000000;
-                    1:  segments = 7'b1111111;
+                    0:  segments = 7'b1010101;
+                    1:  segments = 7'b0101010;
                     default:
                         segments = 7'b0000000;
                 endcase

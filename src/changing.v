@@ -89,6 +89,19 @@ module changing(
                 (animation == 6'b110000) ? 5 :   // ani48
                 (animation == 6'b110001) ? 5 :   // ani49
                 (animation == 6'b110010) ? 5 :   // ani50
+                (animation == 6'b110011) ? 2 :   // ani51
+                (animation == 6'b110100) ? 2 :   // ani52
+                (animation == 6'b110101) ? 2 :   // ani53
+                (animation == 6'b110110) ? 2 :   // ani54
+                (animation == 6'b110111) ? 2 :   // ani55
+                (animation == 6'b111000) ? 2 :   // ani56
+                (animation == 6'b111001) ? 2 :   // ani57
+                (animation == 6'b111010) ? 2 :   // ani58
+                (animation == 6'b111011) ? 2 :   // ani59
+                (animation == 6'b111100) ? 2 :   // ani60
+                (animation == 6'b111101) ? 2 :   // ani61
+                (animation == 6'b111110) ? 2 :   // ani62
+                (animation == 6'b111111) ? 2 ;   // ani63
                 6'b111111;  // default
 
 endmodule

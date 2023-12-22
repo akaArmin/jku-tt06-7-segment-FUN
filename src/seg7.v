@@ -736,7 +736,124 @@ module seg7 (
                     default:
                         segments = 7'b0000000;
                 endcase
-   
+
+            51: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase
+
+            52: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase
+
+            53: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase
+
+            54: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase
+
+            55: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase
+
+            56: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase 
+
+            57: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase 
+
+            58: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase
+
+            59: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase
+
+            60: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase
+
+            61: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase
+
+            62: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase
+
+            63: // Puls
+                case(counter)
+                    //                7654321
+                    0:  segments = 7'b0000000;
+                    1:  segments = 7'b1111111;
+                    default:
+                        segments = 7'b0000000;
+                endcase
+
             default:    
                 segments = 7'b0000000;
         endcase

@@ -11,9 +11,18 @@ gtkwave tb.vcd
 */
 
 // testbench is controlled by test.py
-module tb ();
+module tb (
+    input clk,
+    input btn1_incAni,
+    input btn2_decAni,
+    input btn3_incSpeed,
+    input btn4_decSpeed
+);
 
-    // this part dumps the trace to a vcd file that can be viewed with GTKWave
+    // TB Signals
+
+
+    // Clock Generation -> ?? Hz
     always #10 clk = ~clk;
     
     initial begin
@@ -30,10 +39,7 @@ module tb ();
     reg  [7:0] uio_in;
 
     wire [6:0] segments = uo_out[6:0];
-    wire [7:0] uo_out;
-    wire [7:0] uio_out;
-    wire [7:0] uio_oe;
-
+    
     tt_um_seven_segment_fun1 tt_um_seven_segment_fun1 (
     // include power ports for the Gate Level test
     `ifdef GL_TEST

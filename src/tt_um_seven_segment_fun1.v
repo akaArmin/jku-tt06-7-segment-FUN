@@ -19,6 +19,8 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     wire btn3_incSpeed = ui_in[2];   // Increase the speed of the Animation
     wire btn4_decSpeed = ui_in[3];   // Decrease the speed of the Animation
 
+    assign ui_in[7:4] = 1'bz;
+    assign uio_in[7:0] = 1'bz;
 
     reg debounced_btn1;     // Debounce register Button 1
     reg debounced_btn2;     // Debounce register Button 2
@@ -44,96 +46,35 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     reg [23:0] second_counter;
     reg [4:0] digit;
     wire [4:0] counterMAX;
-
-    // Which animation is displayed
-    //wire [3:0] animation;       // Current Animation
     
-    // FSM states
-    localparam ST_ANI0   = 6'b000000;
-    localparam ST_ANI1   = 6'b000001;
-    localparam ST_ANI2   = 6'b000010;
-    localparam ST_ANI3   = 6'b000011;
-    localparam ST_ANI4   = 6'b000100;
-    localparam ST_ANI5   = 6'b000101;
-    localparam ST_ANI6   = 6'b000110;
-    localparam ST_ANI7   = 6'b000111;
-    localparam ST_ANI8   = 6'b001000;
-    localparam ST_ANI9   = 6'b001001;
-    localparam ST_ANI10  = 6'b001010;
-    localparam ST_ANI11  = 6'b001011;
-    localparam ST_ANI12  = 6'b001100;
-    localparam ST_ANI13  = 6'b001101;
-    localparam ST_ANI14  = 6'b001110;
-    localparam ST_ANI15  = 6'b001111;
-    localparam ST_ANI16  = 6'b010000;
-    localparam ST_ANI17  = 6'b010001;
-    localparam ST_ANI18  = 6'b010010;
-    localparam ST_ANI19  = 6'b010011;
-    localparam ST_ANI20  = 6'b010100;
-    localparam ST_ANI21  = 6'b010101;
-    localparam ST_ANI22  = 6'b010110;
-    localparam ST_ANI23  = 6'b010111;
-    localparam ST_ANI24  = 6'b011000;
-    localparam ST_ANI25  = 6'b011001;
-    localparam ST_ANI26  = 6'b011010;
-    localparam ST_ANI27  = 6'b011011;
-    localparam ST_ANI28  = 6'b011100;
-    localparam ST_ANI29  = 6'b011101;
-    localparam ST_ANI30  = 6'b011110;
-    localparam ST_ANI31  = 6'b011111;
-    localparam ST_ANI32  = 6'b100000;
-    localparam ST_ANI33  = 6'b100001;
-    localparam ST_ANI34  = 6'b100010;
-    localparam ST_ANI35  = 6'b100011;
-    localparam ST_ANI36  = 6'b100100;
-    localparam ST_ANI37  = 6'b100101;
-    localparam ST_ANI38  = 6'b100110;
-    localparam ST_ANI39  = 6'b100111;
-    localparam ST_ANI40  = 6'b101000;
-    localparam ST_ANI41  = 6'b101001;
-    localparam ST_ANI42  = 6'b101010;
-    localparam ST_ANI43  = 6'b101011;
-    localparam ST_ANI44  = 6'b101100;
-    localparam ST_ANI45  = 6'b101101;
-    localparam ST_ANI46  = 6'b101110;
-    localparam ST_ANI47  = 6'b101111;
-    localparam ST_ANI48  = 6'b110000;
-    localparam ST_ANI49  = 6'b110001;
-    localparam ST_ANI50  = 6'b110010;
-    localparam ST_ANI51  = 6'b110011;
-    localparam ST_ANI52  = 6'b110100;
-    localparam ST_ANI53  = 6'b110101;
-    localparam ST_ANI54  = 6'b110110;
-    localparam ST_ANI55  = 6'b110111;
-    localparam ST_ANI56  = 6'b111000;
-    localparam ST_ANI57  = 6'b111001;
-    localparam ST_ANI58  = 6'b111010;
-    localparam ST_ANI59  = 6'b111011;
-    localparam ST_ANI60  = 6'b111100;
-    localparam ST_ANI61  = 6'b111101;
-    localparam ST_ANI62  = 6'b111110;
-    localparam ST_ANImax  = 6'b111111;
-
-
-    // ST_ANImax
+    // FSM states - Animation
+    localparam ST_ANI0      = 6'b000000;
+    localparam ST_ANImax    = 6'b111111;
 
     parameter STATE_BITS = 6;
     reg [STATE_BITS-1:0]currState;
     reg [STATE_BITS-1:0]nextState;
     reg [STATE_BITS-1:0]prevState;
 
+    // Counter compare value
     reg [23:0] compare = 10_000_000;  // Default 1 sek at 10MHz
     localparam comMax = 19_000_000;   // Maximum value for compare
     localparam comMin = 1_000_000;    // Minimum value for compare
     localparam comInc = 1_000_000;    // Stepsize
 
+
+    // Instantiate segment display
+    seg7 seg7(.counter(digit), .animation(currState), .segments(led_out));
+
+    changing changing(.animation(currState), .limit(counterMAX));
+
+
+    // Counter
     always @(posedge clk) begin
         // If reset, set counter to 0
         if (reset) begin
             second_counter <= 0;
             digit <= 0;
-            // compare <= 10_000_000;
-
         end else begin
             // If secound_counter equals the value of compare
             if (second_counter == compare) begin
@@ -149,6 +90,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             end
         end
     end
+
 
     // Switching the states with debounced Button
     always @(posedge clk) begin
@@ -183,12 +125,15 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
 
     // Changing the speed with decounced button
     always @(posedge clk) begin
-        if (debounced_btn3 && (compare <= comMax)) begin
+        if (reset) begin
+            compare <= 10_000_000;
+        end else if (debounced_btn3 && (compare <= comMax)) begin
             compare <= compare + comInc;
         end else if (debounced_btn4 && (compare >= comMin)) begin
             compare <= compare - comInc;
         end
     end
+
 
     // Debouncing - Button 1
     always @(posedge clk) begin
@@ -202,7 +147,6 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             debounced_btn1 <= 1'b0;         // Reset debounced button if button is not pressed
         end
     end
-
 
     // Debouncing - Button 2
     always @(posedge clk) begin
@@ -230,7 +174,6 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
         end
     end
 
-
     // Debouncing - Button 4
     always @(posedge clk) begin
         if (btn4_decSpeed == 1'b1) begin
@@ -243,11 +186,5 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             debounced_btn4 <= 1'b0;         // Reset debounced button if button is not pressed
         end
     end
-
-    
-    // Instantiate segment display
-    seg7 seg7(.counter(digit), .animation(currState), .segments(led_out));
-
-    changing changing(.animation(currState), .limit(counterMAX));
-    
+   
 endmodule

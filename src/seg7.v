@@ -521,14 +521,18 @@ module seg7 (
                         segments = 7'b0000000;
                 endcase
 
-            33: // Puls
+            33: // Online try
                 case(counter)
                     //                7654321
-                    0:  segments = 7'b1000001;
-                    1:  segments = 7'b1110110;
-                    2:  segments = 7'b1111111;
-                    3:  segments = 7'b1110010;
-                    4:  segments = 7'b1000000;
+                    0:  segments = 7'b1101010;
+                    1:  segments = 7'b1101100;
+                    2:  segments = 7'b1110010;
+                    3:  segments = 7'b1010000;
+                    4:  segments = 7'b0011101;
+                    5:  segments = 7'b0001010;
+                    6:  segments = 7'b0110100;
+                    7:  segments = 7'b1100101;
+                    8:  segments = 7'b0101010;
                     default:
                         segments = 7'b0000000;
                 endcase

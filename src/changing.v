@@ -70,8 +70,8 @@ module changing(
                 (animation == 6'b011110) ? 11 :  // ani30, Birthday
                 (animation == 6'b011111) ? 32 :  // ani31, Random++
                // New animations ST_ANI32 to ST_ANI50
-                (animation == 6'b100000) ? 5 :   // ani32
-                (animation == 6'b100001) ? 5 :   // ani33
+                (animation == 6'b100000) ? 5 :   // ani32, Pulse
+                (animation == 6'b100001) ? 9 :   // ani33, Online try
                 (animation == 6'b100010) ? 5 :   // ani34
                 (animation == 6'b100011) ? 5 :   // ani35
                 (animation == 6'b100100) ? 5 :   // ani36

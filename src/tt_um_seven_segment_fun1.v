@@ -19,8 +19,8 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     wire btn3_incSpeed = ui_in[2];   // Increase the speed of the Animation
     wire btn4_decSpeed = ui_in[3];   // Decrease the speed of the Animation
 
-    assign ui_in[7:4] = 1'bz;
-    assign uio_in[7:0] = 1'bz;
+    // assign ui_in[7:4] = 1'bz;
+    // assign uio_in[7:0] = 1'bz;
 
     reg debounced_btn1;     // Debounce register Button 1
     reg debounced_btn2;     // Debounce register Button 2

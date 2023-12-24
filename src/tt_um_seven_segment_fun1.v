@@ -96,14 +96,14 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     always @(posedge clk) begin
         if (reset) begin
             currState <= ST_ANI0;
-            nextState <= ST_ANI1;
+            nextState <= ST_ANI0 + 6'b000001;
             prevState <= ST_ANImax;
 
         end else if (debounced_btn1) begin
             if (nextState != ST_ANImax) begin
                 prevState <= currState;
                 currState <= nextState;
-                nextState <= nextState + 4'b0001;
+                nextState <= nextState + 6'b000001;
             end else begin // If nextState is ST_ANImax
                 prevState <= currState;
                 currState <= nextState;
@@ -113,7 +113,7 @@ module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
             if (prevState != ST_ANI0) begin
                 nextState <= currState;
                 currState <= prevState;
-                prevState <= prevState - 4'b0001;
+                prevState <= prevState - 6'b000001;
             end else begin // If prevState is ST_ANI0
                 nextState <= currState;
                 currState <= prevState;

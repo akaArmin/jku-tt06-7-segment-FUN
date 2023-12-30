@@ -2,7 +2,7 @@
 `ifndef __changing__
 `define __changing__
 
-module changing #(
+module changing (
     input wire [5:0] animation,
     output wire [4:0] limit
 );
@@ -109,3 +109,5 @@ module changing #(
                 6'b111111;  // default
 
 endmodule
+`endif
+

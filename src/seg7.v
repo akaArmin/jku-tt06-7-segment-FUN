@@ -15,7 +15,7 @@
 `ifndef __seg7__
 `define __seg7__
 
-module seg7 #(
+module seg7 (
     input wire [4:0] counter,
     input wire [5:0] animation,
     output reg [6:0] segments
@@ -867,3 +867,4 @@ module seg7 #(
         endcase
     end
 endmodule
+`endif

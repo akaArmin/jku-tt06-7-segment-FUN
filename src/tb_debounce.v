@@ -14,7 +14,7 @@ module tb_debounce;
 
     // TB Signals 
     reg clk = 0;        // Clock 
-    reg rst_n = 0;      // Reset (activ low) 
+    reg rst_n = 1;      // Reset (activ low) 
     reg ena = 1;        // Enable 
     reg [7:0] ui_in; 
     reg [7:0] uio_in; 
@@ -49,7 +49,12 @@ module tb_debounce;
     initial begin 
         $dumpfile ("tb_debounce.vcd"); 
         $dumpvars (0, tb_debounce);        
-
+	
+	ui_in[0] = 0;
+	ui_in[1] = 0;
+	ui_in[2] = 0;
+	ui_in[3] = 0;
+	
         // Reset 
         rst_n = 0; 
         #20; 

@@ -1,4 +1,4 @@
-`default_nettype none 
+// `default_nettype none 
 `timescale 1ns/1ps
 `include "seg7.v"
 `include "changing.v"
@@ -13,9 +13,9 @@ gtkwave tb.vcd
 module tb_debounce; 
 
     // TB Signals 
-    input clk = 0;        // Clock 
-    input rst_n = 1;      // Reset (activ low) 
-    input ena = 1;        // Enable 
+    reg clk = 0;        // Clock 
+    reg rst_n = 0;      // Reset (activ low) 
+    reg ena = 1;        // Enable 
     reg [7:0] ui_in; 
     reg [7:0] uio_in; 
     wire [7:0] uo_out; 

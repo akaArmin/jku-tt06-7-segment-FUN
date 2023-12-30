@@ -1,4 +1,8 @@
-module changing(
+`default_nettype none 
+`ifndef __changing__
+`define __changing__
+
+module changing #(
     input wire [5:0] animation,
     output wire [4:0] limit
 );

@@ -1,4 +1,8 @@
 `default_nettype none
+`ifndef __tt__um__fun__
+`define __tt__um__fun__
+`include "seg7.v"
+`include "changing.v"
 
 module tt_um_seven_segment_fun1 #( parameter MAX_COUNT = 24'd10_000_000 ) (
     input  wire [7:0] ui_in,    // Dedicated inputs - connected to the input switches

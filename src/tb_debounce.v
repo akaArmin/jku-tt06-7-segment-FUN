@@ -31,7 +31,7 @@ module tb_debounce;
         
 
     // Instantiate the Unit Under Test -> UUT
-    tt_um_seven_segment_fun1 uut ( 
+    tt_um_seven_segment_fun1 tt_um_seven_segment_fun1 ( 
         .ui_in      (ui_in),    // Dedicated inputs 
         .uo_out     (uo_out),   // Dedicated outputs 
         .uio_in     (uio_in),   // IOs: Input path 

@@ -1,6 +1,4 @@
 `default_nettype none
-`ifndef __tt__um__fun__
-`define __tt__um__fun__
 `include "seg7.v"
 `include "changing.v"
 
@@ -65,12 +63,6 @@ module tt_um_seven_segment_fun1 (
     localparam comMax = 19_000_000;   // Maximum value for compare
     localparam comMin = 1_000_000;    // Minimum value for compare
     localparam comInc = 1_000_000;    // Stepsize
-
-
-    // Instantiate segment display
-    seg7 seg7(.counter(digit), .animation(currState), .segments(led_out));
-
-    changing changing(.animation(currState), .limit(counterMAX));
 
 
     // Counter
@@ -190,6 +182,10 @@ module tt_um_seven_segment_fun1 (
             debounced_btn4 <= 1'b0;         // Reset debounced button if button is not pressed
         end
     end
+
+    // Instantiate segment display
+    seg7 seg7(.counter(digit), .animation(currState), .segments(led_out));
+
+    changing changing(.animation(currState), .limit(counterMAX));
    
 endmodule
-`endif

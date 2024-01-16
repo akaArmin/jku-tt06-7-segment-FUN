@@ -54,7 +54,7 @@ module tt_um_seven_segment_fun1 (
     // External clock is 10MHz, so need 24 bit counter
     parameter COUNTER_BIT = 24;
     reg [COUNTER_BIT-1:0] counter, next_counter;
-    reg [4:0] digit;
+    reg [4:0] digit, next_digit;
     wire [4:0] counterMAX;
 
     // FSM states - Animation
@@ -77,34 +77,27 @@ module tt_um_seven_segment_fun1 (
     // Counter:
     always @(posedge clk or posedge reset) begin: register_process_counter
         if (reset) begin                    // If reset, set counter to 0
-            counter <= {COUNTER_BIT{1'b0}};;
-            digit <= 0;
+            counter <= {COUNTER_BIT{1'b0}};
+            digit <= 1'b0;
             compare <= 10_000_000;
         end else begin
-            compare <= next_compare;
-            if (counter == compare) begin   // If secound_counter equals the value of compare
-                counter <= 0;               // Reset the secound_counter
-                digit <= digit + 1'b1;      // Increment digit
-                if (digit >= counterMAX) begin
-                    digit <= 0;
-                end
-            end else
-                counter <= counter + 1'b1;  // Increment secound_counter
-                // TODO next_counter ?
+            counter <= next_counter;
+            digit <= next_digit;
         end
     end
 
-    /*
     always @(*) begin: combinatoric_counter
-        next_counter = counter; 
-
-        if (debo_btn3 && (compare <= comMax)) begin
-            next_compare = compare + comInc;
-        end else if (debo_btn4 && (compare >= comMin)) begin
-            next_compare = compare - comInc;
+        compare <= next_compare;
+        if (counter == compare) begin       // If secound_counter equals the value of compare
+            counter <= {COUNTER_BIT{1'b0}}; // Reset the secound_counter
+            next_digit <= digit + 1'b1;     // Increment digit
+            if (digit >= counterMAX) begin
+                next_digit = 1'b0;
+            end
+        end else begin
+            next_counter <= counter + 1'b1;  // Increment secound_counter
         end
     end
-    */
 
     // Changing the speed with decounced button
     always @(*) begin: combinatoric_compare
@@ -119,38 +112,43 @@ module tt_um_seven_segment_fun1 (
         end
     end
 
-    // Switching the states with debounced Button
-    always @(posedge clk or posedge reset) begin
+    // Switching the states with debounced Button:
+    always @(posedge clk or posedge reset) begin: register_process_state
         if (reset) begin
             currState <= ST_ANI0;
             nextState <= ST_ANI0 + 6'b000001;
             prevState <= ST_ANImax;
         end else begin
-            debo_btn1 <= next_debo_btn1;
-            debo_btn2 <= next_debo_btn2;
+            nextState <= next_nextState;
+            prevState <= next_prevState;
+        end
+    end
 
-            if (debo_btn1) begin
-                if (nextState != ST_ANImax) begin
-                    prevState <= currState;
-                    currState <= nextState;
-                    nextState <= nextState + 6'b000001;
-                    // TODO next_nextState
-                end else begin
-                    prevState <= currState;
-                    currState <= nextState;
-                    nextState <= ST_ANI0;
-                end
-            end else if (debo_btn2) begin
-                if (prevState != ST_ANI0) begin
-                    nextState <= currState;
-                    currState <= prevState;
-                    prevState <= prevState - 6'b000001;
-                    // TODO next_prevState
-                end else begin
-                    nextState <= currState;
-                    currState <= prevState;
-                    prevState <= ST_ANImax;
-                end
+    always @(*) begin: combinatoric_state
+        debo_btn1 <= next_debo_btn1;
+        debo_btn2 <= next_debo_btn2;
+
+        if (debo_btn1) begin
+            next_nextState = nextState;
+            if (nextState != ST_ANImax) begin
+                prevState <= currState;
+                currState <= nextState;
+                next_nextState <= nextState + 6'b000001;
+            end else begin
+                prevState <= currState;
+                currState <= nextState;
+                nextState <= ST_ANI0;
+            end
+        end else if (debo_btn2) begin
+            next_prevState = prevState;
+            if (prevState != ST_ANI0) begin
+                nextState <= currState;
+                currState <= prevState;
+                next_prevState <= prevState - 6'b000001;
+            end else begin
+                nextState <= currState;
+                currState <= prevState;
+                prevState <= ST_ANImax;
             end
         end
     end

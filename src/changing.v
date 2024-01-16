@@ -4,7 +4,7 @@
 
 module changing (
     input wire [5:0] animation,
-    output wire [4:0] limit
+    output wire [5:0] limit
 );
 /*
     assign limit = (animation == 5'b00000) ? 10 :  // ani0, 0 -> 9

@@ -55,7 +55,7 @@ module tt_um_seven_segment_fun1 (
     parameter COUNTER_BIT = 24;
     reg [COUNTER_BIT-1:0] counter, next_counter;
     reg [4:0] digit, next_digit;
-    wire [4:0] counterMAX;
+    wire [5:0] counterMAX;
 
     // FSM states - Animation
     localparam ST_ANI0   = 6'b000000;
@@ -69,7 +69,7 @@ module tt_um_seven_segment_fun1 (
     reg [COUNTER_BIT-1:0] compare = 10_000_000;      // Default 1 sek at 10MHz
     reg [COUNTER_BIT-1:0] next_compare = 10_000_000;
 
-    localparam comMax = 19_000_000;   // Maximum value for compare
+    localparam comMax = 24'b1001000011110101011000000;   // Maximum value for compare
     localparam comMin = 1_000_000;    // Minimum value for compare
     localparam comInc = 1_000_000;    // Stepsize
 
@@ -89,7 +89,7 @@ module tt_um_seven_segment_fun1 (
     always @(*) begin: combinatoric_counter
     	next_counter = counter;
         next_digit = digit;
-        
+
         if (counter == compare) begin       // If secound_counter equals the value of compare
             next_counter = 0;               // Reset the secound_counter
             next_digit = digit + 1;         // Increment digit

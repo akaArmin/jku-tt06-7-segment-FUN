@@ -35,6 +35,14 @@ module tt_um_seven_segment_fun1 (
     reg [11:0] btn3_cnt, next_btn3_cnt;     // Initializing a count for Button 3
     reg [11:0] btn4_cnt, next_btn4_cnt;     // Initializing a count for Button 4
 
+<<<<<<< HEAD
+=======
+    reg [11:0] btn1_count;   // Initializing a count for Button 1
+    reg [11:0] btn2_count; 	 // Initializing a count for Button 2
+    reg [11:0] btn3_count;   // Initializing a count for Button 3
+    reg [11:0] btn4_count;    // Initializing a count for Button 4
+   
+>>>>>>> 5656955eae95d2731a5bbae6c3dc0b5b5b7250a7
     wire [6:0] led_out;             // 7-Segment output
     assign uo_out[6:0] = led_out;   // Assign Pins
     assign uo_out[7] = 1'b0;        // Default set to low
@@ -61,7 +69,11 @@ module tt_um_seven_segment_fun1 (
 
     // Counter compare value
     reg [23:0] compare = 10_000_000;  // Default 1 sek at 10MHz
+<<<<<<< HEAD
     reg [23:0] next_compare = 10_000_000;
+=======
+    reg [23:0] next_compare = 10_000_000; 
+>>>>>>> 5656955eae95d2731a5bbae6c3dc0b5b5b7250a7
     localparam comMax = 19_000_000;   // Maximum value for compare
     localparam comMin = 1_000_000;    // Minimum value for compare
     localparam comInc = 1_000_000;    // Stepsize
@@ -74,7 +86,11 @@ module tt_um_seven_segment_fun1 (
             digit <= 0;
             compare <= 10_000_000;
         end else begin
+<<<<<<< HEAD
             compare <= next_compare;
+=======
+        compare <= next_compare;
+>>>>>>> 5656955eae95d2731a5bbae6c3dc0b5b5b7250a7
             // If secound_counter equals the value of compare
             if (second_counter == compare) begin
                 second_counter <= 0;    // Reset the secound_counter
@@ -117,6 +133,7 @@ module tt_um_seven_segment_fun1 (
 
     // Changing the speed with decounced button
     always @(*) begin
+<<<<<<< HEAD
         next_compare = compare;
         if (reset)
             next_compare = 10_000_000;
@@ -124,10 +141,21 @@ module tt_um_seven_segment_fun1 (
             next_compare = compare + comInc;
         else if (debounced_btn4 && (compare >= comMin))
             next_compare = compare - comInc;
+=======
+    next_compare = compare;
+        if (reset) begin
+            next_compare = 10_000_000;
+        end else if (debounced_btn3 && (compare <= comMax)) begin
+            next_compare = compare + comInc;
+        end else if (debounced_btn4 && (compare >= comMin)) begin
+            next_compare = compare - comInc;
+        end
+>>>>>>> 5656955eae95d2731a5bbae6c3dc0b5b5b7250a7
     end
 
     // Debouncing - Button 1
     always @(*) begin
+<<<<<<< HEAD
         next_btn1_cnt = btn1_cnt;
         if (btn1_incAni == 1'b1) begin
             next_btn1_cnt = btn1_cnt + 1;  // Increments count if button is pressed
@@ -137,11 +165,22 @@ module tt_um_seven_segment_fun1 (
             btn1_cnt = 1'b0;               // Reset count if button is not pressed
             debounced_btn1 = 1'b0;         // Reset debounced button if button is not pressed
             // next_btn1_cnt = 1'b0; ?
+=======
+        if (btn1_incAni == 1'b1) begin
+            btn1_count = btn1_count + 1;   // Increments count if button is pressed
+            if (btn1_count == 4) begin
+                debounced_btn1 = 1'b1;     // Debounced button
+            end
+        end else begin
+            btn1_count = 1'b0;             // Reset count if button is not pressed
+            debounced_btn1 = 1'b0;         // Reset debounced button if button is not pressed
+>>>>>>> 5656955eae95d2731a5bbae6c3dc0b5b5b7250a7
         end
     end
 
     // Debouncing - Button 2
     always @(*) begin
+<<<<<<< HEAD
         next_btn2_cnt = btn2_cnt;
         if (btn2_decAni == 1'b1) begin
             next_btn2_cnt = btn2_cnt + 1;  // Increments count if button is pressed
@@ -151,11 +190,23 @@ module tt_um_seven_segment_fun1 (
             btn2_cnt = 1'b0;               // Reset count if button is not pressed
             debounced_btn2 = 1'b0;         // Reset debounced button if button is not pressed
             // next_btn2_cnt = 1'b0; ?
+=======
+    debounced_btn2 = 1'b0; 
+        if (btn2_decAni == 1'b1) begin
+            btn2_count = btn2_count + 1;   // Increments count if button is pressed
+            if (btn2_count == 12'h1FF) begin
+                debounced_btn2 = 1'b1;     // Debounced button
+            end
+        end else begin
+            btn2_count = 1'b0;             // Reset count if button is not pressed
+            debounced_btn2 = 1'b0;         // Reset debounced button if button is not pressed
+>>>>>>> 5656955eae95d2731a5bbae6c3dc0b5b5b7250a7
         end
     end
 
     // Debouncing - Button 3
     always @(*) begin
+<<<<<<< HEAD
         next_btn3_cnt = btn3_cnt;
         if (btn3_incSpeed == 1'b1) begin
             next_btn3_cnt = btn3_cnt + 1;   // Increments count if button is pressed
@@ -165,11 +216,23 @@ module tt_um_seven_segment_fun1 (
             btn3_cnt = 1'b0;                // Reset count if button is not pressed
             debounced_btn3 = 1'b0;          // Reset debounced button if button is not pressed
             // next_btn3_cnt = 1'b0; ?
+=======
+    debounced_btn3 = 1'b0; 
+        if (btn3_incSpeed == 1'b1) begin
+            btn3_count = btn3_count + 1;   // Increments count if button is pressed
+            if (btn3_count == 12'h1FF) begin
+                debounced_btn3 = 1'b1;     // Debounced button
+            end
+        end else begin
+            btn3_count = 1'b0;             // Reset count if button is not pressed
+            debounced_btn3 = 1'b0;         // Reset debounced button if button is not pressed
+>>>>>>> 5656955eae95d2731a5bbae6c3dc0b5b5b7250a7
         end
     end
 
     // Debouncing - Button 4
     always @(*) begin
+<<<<<<< HEAD
         next_btn4_cnt = btn4_cnt;
         if (btn4_decSpeed == 1'b1) begin
             next_btn4_cnt = btn4_cnt + 1;   // Increments count if button is pressed
@@ -179,6 +242,17 @@ module tt_um_seven_segment_fun1 (
             btn4_cnt = 1'b0;                // Reset count if button is not pressed
             debounced_btn4 = 1'b0;          // Reset debounced button if button is not pressed
             // next_btn4_cnt = 1'b0; ?
+=======
+    debounced_btn4 = 1'b0; 
+        if (btn4_decSpeed == 1'b1) begin
+            btn4_count = btn4_count + 1;   // Increments count if button is pressed
+            if (btn4_count == 12'h1FF) begin
+                debounced_btn4 = 1'b1;     // Debounced button
+            end
+        end else begin
+            btn4_count = 1'b0;             // Reset count if button is not pressed
+            debounced_btn4 = 1'b0;         // Reset debounced button if button is not pressed
+>>>>>>> 5656955eae95d2731a5bbae6c3dc0b5b5b7250a7
         end
     end
 

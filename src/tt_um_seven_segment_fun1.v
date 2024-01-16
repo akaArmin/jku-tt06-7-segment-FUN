@@ -52,7 +52,7 @@ module tt_um_seven_segment_fun1 (
     assign uio_out = counter[7:0];
 
     // External clock is 10MHz, so need 24 bit counter
-    parameter COUNTER_BIT = 24;
+    parameter COUNTER_BIT = 25;
     reg [COUNTER_BIT-1:0] counter, next_counter;
     reg [4:0] digit, next_digit;
     wire [5:0] counterMAX;
@@ -69,7 +69,7 @@ module tt_um_seven_segment_fun1 (
     reg [COUNTER_BIT-1:0] compare = 10_000_000;      // Default 1 sek at 10MHz
     reg [COUNTER_BIT-1:0] next_compare = 10_000_000;
 
-    localparam comMax = 24'b1001000011110101011000000;   // Maximum value for compare
+    localparam comMax = 25'b1001000011110101011000000;   // Maximum value for compare
     localparam comMin = 1_000_000;    // Minimum value for compare
     localparam comInc = 1_000_000;    // Stepsize
 

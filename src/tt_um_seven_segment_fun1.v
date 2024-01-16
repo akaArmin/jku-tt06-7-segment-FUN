@@ -77,7 +77,7 @@ module tt_um_seven_segment_fun1 (
     always @(posedge clk or posedge reset) begin: register_process_counter
         if (reset) begin                    // If reset, set counter to 0
             counter <= {COUNTER_BIT{1'b0}};
-            digit <= 5'b00000;
+            digit <= 0;
             compare <= 10_000_000;
         end else begin
             counter <= next_counter;
@@ -88,6 +88,8 @@ module tt_um_seven_segment_fun1 (
 
     always @(*) begin: combinatoric_counter
     	next_counter = counter;
+        next_digit = digit;
+        
         if (counter == compare) begin       // If secound_counter equals the value of compare
             next_counter = 0;               // Reset the secound_counter
             next_digit = digit + 1;         // Increment digit

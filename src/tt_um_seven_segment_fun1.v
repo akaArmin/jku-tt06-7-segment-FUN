@@ -27,7 +27,7 @@ module tt_um_seven_segment_fun1 (
 
     // Debouncing:
     parameter DEBOUNCE_BIT = 16;
-    parameter DEBOUNCE_VAL = 20000;         // equals 20 ms at 10 MHz clk
+    parameter DEBOUNCE_VAL = 20_000;         // equals 20 ms at 10 MHz clk
 
     reg [DEBOUNCE_BIT-1:0] btn1_cnt, next_btn1_cnt;     // Initializing the counter for Button 1
     reg [DEBOUNCE_BIT-1:0] btn2_cnt, next_btn2_cnt;     // Initializing the counter for Button 2
@@ -89,13 +89,13 @@ module tt_um_seven_segment_fun1 (
     always @(*) begin: combinatoric_counter
     	next_counter = counter;
         if (counter == compare) begin       // If secound_counter equals the value of compare
-            next_counter = 0; // Reset the secound_counter
-            next_digit = digit + 1;     // Increment digit
+            next_counter = 0;               // Reset the secound_counter
+            next_digit = digit + 1;         // Increment digit
             if (digit >= counterMAX) begin
                 next_digit = 0;
             end
         end else begin
-            next_counter = counter + 1;  // Increment secound_counter
+            next_counter = counter + 1;     // Increment secound_counter
         end
     end
 
@@ -144,10 +144,10 @@ module tt_um_seven_segment_fun1 (
             btn3_cnt <= 0;
             btn4_cnt <= 0;
 
-            debo_btn1 <= 1'b0;
-            debo_btn2 <= 1'b0;
-            debo_btn3 <= 1'b0;
-            debo_btn4 <= 1'b0;
+            debo_btn1 <= 0;
+            debo_btn2 <= 0;
+            debo_btn3 <= 0;
+            debo_btn4 <= 0;
 
         end else begin
             btn1_cnt <= next_btn1_cnt;
@@ -170,11 +170,11 @@ module tt_um_seven_segment_fun1 (
         if (btn1_incAni) begin
             next_btn1_cnt = btn1_cnt + 1;      // Increments count if button is pressed
             if (btn1_cnt == DEBOUNCE_VAL) begin
-                next_debo_btn1 = 1'b1;                 // Debounced button high
+                next_debo_btn1 = 1;                 // Debounced button high
             end
         end else begin
             next_btn1_cnt = 0; // Reset count if button is not pressed
-            next_debo_btn1 = 1'b0;                // Reset debounced button if button is not pressed
+            next_debo_btn1 = 0;                // Reset debounced button if button is not pressed
         end
     end
 
@@ -186,11 +186,11 @@ module tt_um_seven_segment_fun1 (
         if (btn2_decAni) begin
             next_btn2_cnt = btn2_cnt + 1;      // Increments count if button is pressed
             if (btn2_cnt == DEBOUNCE_VAL) begin
-                next_debo_btn2 = 1'b1;                 // Debounced button high
+                next_debo_btn2 = 1;                 // Debounced button high
             end
         end else begin
             next_btn2_cnt = 0; // Reset count if button is not pressed
-            next_debo_btn2 = 1'b0;                // Reset debounced button if button is not pressed
+            next_debo_btn2 = 0;                // Reset debounced button if button is not pressed
         end
     end
 
@@ -202,11 +202,11 @@ module tt_um_seven_segment_fun1 (
         if (btn3_incSpeed) begin
             next_btn3_cnt = btn3_cnt + 1;      // Increments count if button is pressed
             if (btn3_cnt == DEBOUNCE_VAL) begin
-                next_debo_btn3 = 1'b1;                 // Debounced button high
+                next_debo_btn3 = 1;                 // Debounced button high
             end
         end else begin
             next_btn3_cnt = 0; // Reset count if button is not pressed
-            next_debo_btn3 = 1'b0;                // Reset debounced button if button is not pressed
+            next_debo_btn3 = 0;                // Reset debounced button if button is not pressed
         end
     end
 
@@ -218,11 +218,11 @@ module tt_um_seven_segment_fun1 (
         if (btn4_decSpeed) begin
             next_btn4_cnt = btn4_cnt + 1;      // Increments count if button is pressed
             if (btn4_cnt == DEBOUNCE_VAL) begin
-                next_debo_btn4 = 1'b1;                 // Debounced button high
+                next_debo_btn4 = 1;                 // Debounced button high
             end
         end else begin
             next_btn4_cnt = 0; 			// Reset count if button is not pressed
-            next_debo_btn4 = 1'b0;                // Reset debounced button if button is not pressed
+            next_debo_btn4 = 0;                // Reset debounced button if button is not pressed
         end
     end
 

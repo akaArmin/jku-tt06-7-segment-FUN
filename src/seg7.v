@@ -16,7 +16,7 @@
 `define __seg7__
 
 module seg7 (
-    input wire [4:0] counter,
+    input wire [5:0] counter,
     input wire [5:0] animation,
     output reg [6:0] segments
 );

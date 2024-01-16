@@ -54,7 +54,7 @@ module tt_um_seven_segment_fun1 (
     // External clock is 10MHz, so need 24 bit counter
     parameter COUNTER_BIT = 25;
     reg [COUNTER_BIT-1:0] counter, next_counter;
-    reg [4:0] digit, next_digit;
+    reg [5:0] digit, next_digit;
     wire [5:0] counterMAX;
 
     // FSM states - Animation

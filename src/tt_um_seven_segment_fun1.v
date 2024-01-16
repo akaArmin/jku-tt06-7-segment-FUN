@@ -66,7 +66,7 @@ module tt_um_seven_segment_fun1 (
     reg [STATE_BITS-1:0] nextState, next_nextState;
     reg [STATE_BITS-1:0] prevState, next_prevState;
 
-    // Counter compare value
+    // Counter  value
     reg [COUNTER_BIT-1:0] compare = 10_000_000;      // Default 1 sek at 10MHz
     reg [COUNTER_BIT-1:0] next_compare = 10_000_000;
 
@@ -78,32 +78,31 @@ module tt_um_seven_segment_fun1 (
     always @(posedge clk or posedge reset) begin: register_process_counter
         if (reset) begin                    // If reset, set counter to 0
             counter <= {COUNTER_BIT{1'b0}};
-            digit <= 1'b0;
+            digit <= 5'b00000;
             compare <= 10_000_000;
         end else begin
             counter <= next_counter;
             digit <= next_digit;
+            compare <= next_compare;
         end
     end
 
     always @(*) begin: combinatoric_counter
-        compare <= next_compare;
+    	next_counter = counter;
         if (counter == compare) begin       // If secound_counter equals the value of compare
-            counter <= {COUNTER_BIT{1'b0}}; // Reset the secound_counter
-            next_digit <= digit + 1'b1;     // Increment digit
+            next_counter = 0; // Reset the secound_counter
+            next_digit = digit + 1;     // Increment digit
             if (digit >= counterMAX) begin
-                next_digit = 1'b0;
+                next_digit = 0;
             end
         end else begin
-            next_counter <= counter + 1'b1;  // Increment secound_counter
+            next_counter = counter + 1;  // Increment secound_counter
         end
     end
 
     // Changing the speed with decounced button
     always @(*) begin: combinatoric_compare
         next_compare = compare;
-        debo_btn3 = next_debo_btn3;
-        debo_btn4 = next_debo_btn4;
 
         if (debo_btn3 && (compare <= comMax)) begin
             next_compare = compare + comInc;
@@ -125,41 +124,38 @@ module tt_um_seven_segment_fun1 (
     end
 
     always @(*) begin: combinatoric_state
-        debo_btn1 <= next_debo_btn1;
-        debo_btn2 <= next_debo_btn2;
-
         if (debo_btn1) begin
             next_nextState = nextState;
             if (nextState != ST_ANImax) begin
-                prevState <= currState;
-                currState <= nextState;
-                next_nextState <= nextState + 6'b000001;
+                prevState = currState;
+                currState = nextState;
+                next_nextState = nextState + 6'b000001;
             end else begin
-                prevState <= currState;
-                currState <= nextState;
-                nextState <= ST_ANI0;
+                prevState = currState;
+                currState = nextState;
+                nextState = ST_ANI0;
             end
         end else if (debo_btn2) begin
             next_prevState = prevState;
             if (prevState != ST_ANI0) begin
-                nextState <= currState;
-                currState <= prevState;
-                next_prevState <= prevState - 6'b000001;
+                nextState = currState;
+                currState = prevState;
+                next_prevState = prevState - 6'b000001;
             end else begin
-                nextState <= currState;
-                currState <= prevState;
-                prevState <= ST_ANImax;
+                nextState = currState;
+                currState = prevState;
+                prevState = ST_ANImax;
             end
         end
     end
 
     // Debouncing Section
-    always @(posedge clk) begin: register_process_buttons
+    always @(posedge clk or posedge reset) begin: register_process_buttons
         if (reset) begin
-            btn1_cnt <= {DEBOUNCE_BIT{1'b0}};
-            btn2_cnt <= {DEBOUNCE_BIT{1'b0}};
-            btn3_cnt <= {DEBOUNCE_BIT{1'b0}};
-            btn4_cnt <= {DEBOUNCE_BIT{1'b0}};
+            btn1_cnt <= 0;
+            btn2_cnt <= 0;
+            btn3_cnt <= 0;
+            btn4_cnt <= 0;
 
             debo_btn1 <= 1'b0;
             debo_btn2 <= 1'b0;
@@ -180,65 +176,80 @@ module tt_um_seven_segment_fun1 (
     end
 
     always @(*) begin: combinatoric_btn1
+    
         next_btn1_cnt = btn1_cnt;
         next_debo_btn1 = debo_btn1;
+        
         if (btn1_incAni) begin
-            next_btn1_cnt = btn1_cnt + 1'b1;      // Increments count if button is pressed
+            next_btn1_cnt = btn1_cnt + 1;      // Increments count if button is pressed
             if (btn1_cnt == DEBOUNCE_VAL) begin
                 debo_btn1 = 1'b1;                 // Debounced button high
             end
         end else begin
-            next_btn1_cnt = {DEBOUNCE_BIT{1'b0}}; // Reset count if button is not pressed
+            next_btn1_cnt = 0; // Reset count if button is not pressed
             next_debo_btn1 = 1'b0;                // Reset debounced button if button is not pressed
         end
     end
 
     always @(*) begin: combinatoric_btn2
+    
         next_btn2_cnt = btn2_cnt;
         next_debo_btn2 = debo_btn2;
+        
         if (btn2_decAni) begin
-            next_btn2_cnt = btn2_cnt + 1'b1;      // Increments count if button is pressed
+            next_btn2_cnt = btn2_cnt + 1;      // Increments count if button is pressed
             if (btn2_cnt == DEBOUNCE_VAL) begin
                 debo_btn2 = 1'b1;                 // Debounced button high
             end
         end else begin
-            next_btn2_cnt = {DEBOUNCE_BIT{1'b0}}; // Reset count if button is not pressed
+            next_btn2_cnt = 0; // Reset count if button is not pressed
             next_debo_btn2 = 1'b0;                // Reset debounced button if button is not pressed
         end
     end
 
     always @(*) begin: combinatoric_btn3
+    
         next_btn3_cnt = btn3_cnt;
         next_debo_btn3 = debo_btn3;
+        
         if (btn3_incSpeed) begin
-            next_btn3_cnt = btn3_cnt + 1'b1;      // Increments count if button is pressed
+            next_btn3_cnt = btn3_cnt + 1;      // Increments count if button is pressed
             if (btn3_cnt == DEBOUNCE_VAL) begin
                 debo_btn3 = 1'b1;                 // Debounced button high
             end
         end else begin
-            next_btn3_cnt = {DEBOUNCE_BIT{1'b0}}; // Reset count if button is not pressed
+            next_btn3_cnt = 0; // Reset count if button is not pressed
             next_debo_btn3 = 1'b0;                // Reset debounced button if button is not pressed
         end
     end
 
     always @(*) begin: combinatoric_btn4
+    
         next_btn4_cnt = btn4_cnt;
         next_debo_btn4 = debo_btn4;
+        
         if (btn4_decSpeed) begin
-            next_btn4_cnt = btn4_cnt + 1'b1;      // Increments count if button is pressed
+            next_btn4_cnt = btn4_cnt + 1;      // Increments count if button is pressed
             if (btn4_cnt == DEBOUNCE_VAL) begin
                 debo_btn4 = 1'b1;                 // Debounced button high
             end
         end else begin
-            next_btn4_cnt = {DEBOUNCE_BIT{1'b0}}; // Reset count if button is not pressed
+            next_btn4_cnt = 0; 			// Reset count if button is not pressed
             next_debo_btn4 = 1'b0;                // Reset debounced button if button is not pressed
         end
     end
 
     // Instantiate segment display
-    seg7 seg7(.counter(digit), .animation(currState), .segments(led_out));
+    seg7 seg7(  
+    .counter(digit), 
+    .animation(currState), 
+    .segments(led_out)
+    );
 
     // Instantiate changing module
-    changing changing(.animation(currState), .limit(counterMAX));
+    changing changing(
+    .animation(currState),
+    .limit(counterMAX)
+     );
 
 endmodule

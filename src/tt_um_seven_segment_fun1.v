@@ -61,10 +61,9 @@ module tt_um_seven_segment_fun1 (
     localparam ST_ANI0   = 6'b000000;
     localparam ST_ANImax = 6'b111111;
 
-    parameter STATE_BITS = 6;
-    reg [STATE_BITS-1:0] currState;
-    reg [STATE_BITS-1:0] nextState, next_nextState;
-    reg [STATE_BITS-1:0] prevState, next_prevState;
+    parameter ANI_BIT = 6;
+    reg [ANI_BIT-1:0] animation;
+    reg [ANI_BIT-1:0] next_animation;
 
     // Counter  value
     reg [COUNTER_BIT-1:0] compare = 10_000_000;      // Default 1 sek at 10MHz
@@ -112,39 +111,27 @@ module tt_um_seven_segment_fun1 (
     end
 
     // Switching the states with debounced Button:
-    always @(posedge clk or posedge reset) begin: register_process_state
+    always @(posedge clk or posedge reset) begin: register_process_animation
         if (reset) begin
-            currState <= ST_ANI0;
-            nextState <= ST_ANI0 + 6'b000001;
-            prevState <= ST_ANImax;
+            animation <= ST_ANI0;
         end else begin
-            nextState <= next_nextState;
-            prevState <= next_prevState;
+            animation <= next_animation;
         end
     end
 
-    always @(*) begin: combinatoric_state
+    always @(*) begin: combinatoric_animation
+        next_animation = animation;
         if (debo_btn1) begin
-            next_nextState = nextState;
-            if (nextState != ST_ANImax) begin
-                prevState = currState;
-                currState = nextState;
-                next_nextState = nextState + 6'b000001;
+            if (animation == ST_ANImax) begin
+                next_animation = ST_ANI0;
             end else begin
-                prevState = currState;
-                currState = nextState;
-                nextState = ST_ANI0;
+                next_animation = animation + 1;
             end
         end else if (debo_btn2) begin
-            next_prevState = prevState;
-            if (prevState != ST_ANI0) begin
-                nextState = currState;
-                currState = prevState;
-                next_prevState = prevState - 6'b000001;
+            if (animation == ST_ANI0) begin
+                next_animation = ST_ANImax;
             end else begin
-                next_nextState = currState;
-                currState = prevState;
-                next_prevState = ST_ANImax;
+                next_animation = animation - 1;
             end
         end
     end
@@ -240,16 +227,9 @@ module tt_um_seven_segment_fun1 (
     end
 
     // Instantiate segment display
-    seg7 seg7(  
-    .counter(digit), 
-    .animation(currState), 
-    .segments(led_out)
-    );
+    seg7 seg7(.counter(digit),.animation(animation),.segments(led_out));
 
     // Instantiate changing module
-    changing changing(
-    .animation(currState),
-    .limit(counterMAX)
-     );
+    changing changing(.animation(animation),.limit(counterMAX));
 
 endmodule

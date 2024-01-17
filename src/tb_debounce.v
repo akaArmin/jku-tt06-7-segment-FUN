@@ -1,5 +1,5 @@
 // `default_nettype none 
-`timescale 1ms/1ms
+`timescale 1ms/1ns
 `include "seg7.v"
 `include "changing.v"
 

@@ -1,5 +1,5 @@
 // `default_nettype none 
-`timescale 1ns/1ns
+`timescale 1ms/1ms
 `include "seg7.v"
 `include "changing.v"
 
@@ -42,9 +42,9 @@ module tb_debounce;
         .rst_n      (rst_n)     // not reset 
     ); 
 
-    // Clock Generation -> 10MHz = 1 / 100ns
+    // Clock Generation -> 10MHz = 1 / 0.0001ms
     /* verilator lint_off STMTDLY */ 
-    always #100 clk = ~clk; 
+    always #0.0001 clk = ~clk; 
     /* verilator lint_on STMTDLY */
 
     initial begin 
@@ -58,54 +58,54 @@ module tb_debounce;
         ui_in[3] = 0;
 	
         // Reset 
-        #50 rst_n = 1; 
+        #10 rst_n = 1; 
         #10 rst_n = 0;
 
-        #200 ui_in[0] = 1;
-        #200 ui_in[0] = 0;
-        #200 ui_in[0] = 1;
-        #200 ui_in[0] = 0;
-        #200 ui_in[0] = 1;
-        #200 ui_in[0] = 0;
-        #200 ui_in[0] = 1;
-        #200 ui_in[0] = 0;
-        #200 ui_in[0] = 0; 
+        #20 ui_in[0] = 1;
+        #20 ui_in[0] = 0;
+        #20 ui_in[0] = 1;
+        #20 ui_in[0] = 0;
+        #20 ui_in[0] = 1;
+        #20 ui_in[0] = 0;
+        #20 ui_in[0] = 1;
+        #20 ui_in[0] = 0;
+        #20 ui_in[0] = 0; 
 
-        #500;
+        #50;
 
         ui_in[1] = 1;
-        #200 ui_in[1] = 0;
-        #200 ui_in[1] = 1;
-        #200 ui_in[1] = 0;
-        #200 ui_in[1] = 1;
-        #200 ui_in[1] = 0;
-        #200 ui_in[1] = 1;
-        #200 ui_in[1] = 0;
-        #200 ui_in[1] = 0;  
+        #20 ui_in[1] = 0;
+        #20 ui_in[1] = 1;
+        #20 ui_in[1] = 0;
+        #20 ui_in[1] = 1;
+        #20 ui_in[1] = 0;
+        #20 ui_in[1] = 1;
+        #20 ui_in[1] = 0;
+        #20 ui_in[1] = 0;  
 
-        #500;
+        #50;
 
         ui_in[2] = 1;
-        #200 ui_in[2] = 0;
-        #200 ui_in[2] = 1;
-        #200 ui_in[2] = 0;
-        #200 ui_in[2] = 1;
-        #200 ui_in[2] = 0;
-        #200 ui_in[2] = 1;
-        #200 ui_in[2] = 0;
-        #200 ui_in[2] = 0; 
+        #20 ui_in[2] = 0;
+        #20 ui_in[2] = 1;
+        #20 ui_in[2] = 0;
+        #20 ui_in[2] = 1;
+        #20 ui_in[2] = 0;
+        #20 ui_in[2] = 1;
+        #20 ui_in[2] = 0;
+        #20 ui_in[2] = 0; 
 
-        #500; 
+        #50; 
 
         ui_in[3] = 1;
-        #200 ui_in[3] = 0;
-        #200 ui_in[3] = 1;
-        #200 ui_in[3] = 0;
-        #200 ui_in[3] = 1;
-        #200 ui_in[3] = 0;
-        #200 ui_in[3] = 1;
-        #200 ui_in[3] = 0;
-        #200 ui_in[3] = 0; 
+        #20 ui_in[3] = 0;
+        #20 ui_in[3] = 1;
+        #20 ui_in[3] = 0;
+        #20 ui_in[3] = 1;
+        #20 ui_in[3] = 0;
+        #20 ui_in[3] = 1;
+        #20 ui_in[3] = 0;
+        #20 ui_in[3] = 0; 
 
         #100;
         $finish; 

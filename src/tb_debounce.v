@@ -15,6 +15,7 @@ module tb_debounce;
     // TB Signals 
     reg clk = 0;        // Clock 
     reg rst_n = 0;      // Reset
+    reg ena = 1;
 
     reg [7:0] ui_in; 
     reg [7:0] uio_in; 
@@ -24,10 +25,10 @@ module tb_debounce;
  
     wire [6:0] segments = uo_out[6:0]; 
 
-    wire btn1 = ui_in[0]; 
-    wire btn2 = ui_in[1]; 
-    wire btn3 = ui_in[2]; 
-    wire btn4 = ui_in[3]; 
+    // wire btn1 = ui_in[0]; 
+    // wire btn2 = ui_in[1]; 
+    // wire btn3 = ui_in[2]; 
+    // wire btn4 = ui_in[3]; 
         
 
     // Instantiate the Unit Under Test -> UUT
@@ -61,17 +62,17 @@ module tb_debounce;
         #10 rst_n = 1; 
         #10 rst_n = 0;
 
-        #20 ui_in[0] = 0;
-        #10 ui_in[0] = 1;
+        #200 ui_in[0] = 1;
         #100 ui_in[0] = 0;
-        #10 ui_in[0] = 1;
-        #200 ui_in[0] = 0;
-        #10 ui_in[0] = 1;
-        #20 ui_in[0] = 0;
-        #100 ui_in[0] = 1;
-        #10 ui_in[0] = 0; 
+        #1000 ui_in[0] = 1;
+        #100 ui_in[0] = 0;
+        #2000 ui_in[0] = 1;
+        #100 ui_in[0] = 0;
+        #200 ui_in[0] = 1;
+        #1000 ui_in[0] = 0;
+        #100 ui_in[0] = 1; 
 
-        #500;
+        #5000;
 
         ui_in[1] = 0;
         #10 ui_in[1] = 1;

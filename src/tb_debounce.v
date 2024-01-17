@@ -1,5 +1,5 @@
 // `default_nettype none 
-`timescale 1ns/1ps
+`timescale 1ns/1ns
 `include "seg7.v"
 `include "changing.v"
 
@@ -14,8 +14,8 @@ module tb_debounce;
 
     // TB Signals 
     reg clk = 0;        // Clock 
-    reg rst_n = 1;      // Reset (activ low) 
-    reg ena = 1;        // Enable 
+    reg rst_n = 0;      // Reset
+
     reg [7:0] ui_in; 
     reg [7:0] uio_in; 
     wire [7:0] uo_out; 
@@ -42,26 +42,26 @@ module tb_debounce;
         .rst_n      (rst_n)     // not reset 
     ); 
 
-    // Clock Generation -> 10MHz = 50ns 
-    always #50 clk = ~clk; 
-
+    // Clock Generation -> 10MHz = 1 / 100ns
+    /* verilator lint_off STMTDLY */ 
+    always #100 clk = ~clk; 
+    /* verilator lint_on STMTDLY */
 
     initial begin 
         $dumpfile ("tb_debounce.vcd"); 
         $dumpvars (0, tb_debounce);        
 	
+        /* verilator lint_off STMTDLY */
         ui_in[0] = 0;
         ui_in[1] = 0;
         ui_in[2] = 0;
         ui_in[3] = 0;
 	
         // Reset 
-        rst_n = 0; 
-        #20; 
-        rst_n = 1; 
-        #40; 
+        #50 rst_n = 1; 
+        #10 rst_n = 0;
 
-        ui_in[0] = 1;
+        #200 ui_in[0] = 1;
         #200 ui_in[0] = 0;
         #200 ui_in[0] = 1;
         #200 ui_in[0] = 0;
@@ -108,7 +108,8 @@ module tb_debounce;
         #200 ui_in[3] = 0; 
 
         #100;
-
         $finish; 
+
+        /* verilator lint_on STMTDLY */
     end 
 endmodule 

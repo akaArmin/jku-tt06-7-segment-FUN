@@ -23,16 +23,19 @@ module debouncer_tb;
 
     // Test procedure
     initial begin
+    
+    	$dumpfile ("debouncer_tb.vcd"); 
+        $dumpvars (0, debouncer_tb);   
         // Initialize Inputs
         clk = 0;
-        reset = 1;
+        reset = 0;
         button_in = 0;
 
         // Reset the system
         #100; 
-        reset = 0;
-        #100;
         reset = 1;
+        #100;
+        reset = 0;
         #100;
 
         // Simulate button press and release

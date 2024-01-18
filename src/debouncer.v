@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 module debouncer (
     input wire clk,             
     input wire reset,           
@@ -17,7 +18,7 @@ module debouncer (
     reg next_debounced_signal;
 
     // Debounce time constant and counter length
-    parameter DEBOUNCE_TIME = 45000; 
+    parameter DEBOUNCE_TIME = 1000; 
     parameter COUNTER_LEN = 20;      
 
     // FSM Process for state transition and output

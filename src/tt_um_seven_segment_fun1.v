@@ -26,8 +26,8 @@ module tt_um_seven_segment_fun1 (
     // assign uio_in[7:0] = 1'bz;
 
     // Debouncing:
-    parameter DEBOUNCE_BIT = 16;
-    parameter DEBOUNCE_VAL = 500_000;         // equals 50 ms at 10 MHz clk
+    parameter DEBOUNCE_BIT = 19;
+    parameter DEBOUNCE_VAL = 450_000;         // equals 90 ms at 10 MHz clk
 
     reg [DEBOUNCE_BIT-1:0] btn1_cnt, next_btn1_cnt;     // Initializing the counter for Button 1
     reg [DEBOUNCE_BIT-1:0] btn2_cnt, next_btn2_cnt;     // Initializing the counter for Button 2
@@ -173,10 +173,11 @@ module tt_um_seven_segment_fun1 (
             next_btn1_cnt = btn1_cnt + 1;      // Increments count if button is pressed
             if (btn1_cnt == DEBOUNCE_VAL) begin
                 next_debo_btn1 = 1;                 // Debounced button high
+                next_btn1_cnt = 0;
             end
         end else begin
-            next_btn1_cnt = 0; // Reset count if button is not pressed
-            next_debo_btn1 = 0;                // Reset debounced button if button is not pressed
+            next_btn1_cnt = 0; 	// Reset count if button is not pressed
+            next_debo_btn1 = 0; // Reset debounced button if button is not pressed
         end
     end
 

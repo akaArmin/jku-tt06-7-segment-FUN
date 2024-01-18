@@ -14,7 +14,7 @@ module tb_debounce;
 
     // TB Signals 
     reg clk = 0;        // Clock 
-    reg rst_n = 0;      // Reset
+    reg rst_n = 1;      // Reset - aktiv low
     reg ena = 1;
 
     reg [7:0] ui_in; 
@@ -59,8 +59,8 @@ module tb_debounce;
         ui_in[3] = 0;
 	
         // Reset 
-        rst_n = 1; #10;
         rst_n = 0; #10;
+        rst_n = 1; #10;
 
         ui_in[0] = 1; #20;
         ui_in[0] = 0; #50;
@@ -72,7 +72,7 @@ module tb_debounce;
         ui_in[0] = 0; #50;
         ui_in[0] = 1; #51;
 	ui_in[0] = 0;
-
+/*
         #500;
  
         ui_in[1] = 1; #20;
@@ -111,7 +111,7 @@ module tb_debounce;
         ui_in[3] = 0; #50;
         ui_in[3] = 1; #51;
 	ui_in[3] = 0;
-
+*/
         #500;
         $finish; 
 

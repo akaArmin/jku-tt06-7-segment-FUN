@@ -27,7 +27,7 @@ module tt_um_seven_segment_fun1 (
 
     // Debouncing:
     parameter DEBOUNCE_BIT = 16;
-    parameter DEBOUNCE_VAL = 20_000;         // equals 20 ms at 10 MHz clk
+    parameter DEBOUNCE_VAL = 500_000;         // equals 50 ms at 10 MHz clk
 
     reg [DEBOUNCE_BIT-1:0] btn1_cnt, next_btn1_cnt;     // Initializing the counter for Button 1
     reg [DEBOUNCE_BIT-1:0] btn2_cnt, next_btn2_cnt;     // Initializing the counter for Button 2

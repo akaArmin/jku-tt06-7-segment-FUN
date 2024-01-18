@@ -1,26 +1,24 @@
 module debouncer (
-    input wire clk,             // Clock input
-    input wire reset,           // Reset input
-    input wire button_in,       // Raw button input
-    output reg debounced_out    // Debounced button output
+    input wire clk,             
+    input wire reset,           
+    input wire button_in,       
+    output reg debounced_out    
 );
 
-    // Define FSM states
-    typedef enum reg [1:0] {
-        WAIT_ON_CHANGE = 2'b00,
-        CHANGE_STATE   = 2'b01
-    } t_fsm;
+    // Define FSM states using parameters
+    parameter WAIT_ON_CHANGE = 2'b00,
+              CHANGE_STATE   = 2'b01;
 
     // FSM state variables
-    reg t_fsm fsm_state, next_fsm_state;
+    reg [1:0] fsm_state, next_fsm_state;
 
     // Additional signals
     reg [COUNTER_LEN-1:0] counter_value, next_counter_value;
     reg next_debounced_signal;
 
     // Debounce time constant and counter length
-    parameter DEBOUNCE_TIME = 45000; // Set your debounce time here
-    parameter COUNTER_LEN = 20;      // Set the length of your counter here
+    parameter DEBOUNCE_TIME = 45000; 
+    parameter COUNTER_LEN = 20;      
 
     // FSM Process for state transition and output
     always @(posedge clk or posedge reset) begin

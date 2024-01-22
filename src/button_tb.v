@@ -15,7 +15,7 @@ module button_tb;
         .clk(clk), 
         .reset(reset), 
         .button_in(button_in), 
-        .debounced_out(pulse_out)
+        .one_shot_pulse(pulse_out)
     );
 
     // Clock generation (50 MHz)
@@ -24,8 +24,8 @@ module button_tb;
     // Test procedure
     initial begin
     
-    	$dumpfile ("debouncer_tb.vcd"); 
-        $dumpvars (0, debouncer_tb);   
+    	$dumpfile ("button_tb.vcd"); 
+        $dumpvars (0, button_tb);   
         // Initialize Inputs
         clk = 0;
         reset = 0;

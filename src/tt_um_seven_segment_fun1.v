@@ -2,7 +2,7 @@
 
 `include "seg7.v"
 `include "changing.v"
-`include "debouncer.v"  // Include debouncer module
+`include "button.v"  // Include debouncer module
 
 module tt_um_seven_segment_fun1 (
     input wire [7:0] ui_in,    
@@ -25,10 +25,34 @@ module tt_um_seven_segment_fun1 (
     wire reset = !rst_n;            // Reset
 
     // Instantiate debouncer for each button
-    debouncer db_btn1(.clk(clk), .reset(reset), .button_in(ui_in[0]), .debounced_out(debounced_btn1_incAni));
-    debouncer db_btn2(.clk(clk), .reset(reset), .button_in(ui_in[1]), .debounced_out(debounced_btn2_decAni));
-    debouncer db_btn3(.clk(clk), .reset(reset), .button_in(ui_in[2]), .debounced_out(debounced_btn3_incSpeed));
-    debouncer db_btn4(.clk(clk), .reset(reset), .button_in(ui_in[3]), .debounced_out(debounced_btn4_decSpeed));
+    button db_btn1(
+    .clk(clk), 
+    .reset(reset),
+    .button_in(ui_in[0]), 
+    .one_shot_pulse(debounced_btn1_incAni)
+    );
+    
+    button db_btn2(
+    .clk(clk), 
+    .reset(reset), 
+    .button_in(ui_in[1]), 
+    .one_shot_pulse(debounced_btn2_decAni)
+    );
+    
+    button db_btn3(
+    .clk(clk), 
+    .reset(reset), 
+    .button_in(ui_in[2]), 
+    .one_shot_pulse(debounced_btn3_incSpeed)
+    );
+    
+    button db_btn4(
+    .clk(clk), 
+    .reset(reset), 
+    .button_in(ui_in[3]), 
+    .one_shot_pulse(debounced_btn4_decSpeed)
+    );
+    
 
     // assign ui_in[7:4] = 1'bz;
     // assign uio_in[7:0] = 1'bz;
@@ -99,9 +123,9 @@ module tt_um_seven_segment_fun1 (
     always @(*) begin: combinatoric_compare
         next_compare = compare;
 
-        if (debounced_btn3_incAni && (compare <= comMax)) begin
+        if (debounced_btn3_incSpeed && (compare <= comMax)) begin
             next_compare = compare + comInc;
-        end else if (debounced_btn4_incAni && (compare >= comMin)) begin
+        end else if (debounced_btn4_decSpeed && (compare >= comMin)) begin
             next_compare = compare - comInc;
         end
     end
@@ -123,7 +147,7 @@ module tt_um_seven_segment_fun1 (
             end else begin
                 next_animation = animation + 1;
             end
-        end else if (debounced_btn2_incAni) begin
+        end else if (debounced_btn2_decAni) begin
             if (animation == ST_ANI0) begin
                 next_animation = ST_ANImax;
             end else begin

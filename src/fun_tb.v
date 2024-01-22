@@ -50,52 +50,48 @@ module tt_um_seven_segment_fun1_tb;
 
         // Initialize Inputs
         clk = 0;
-        rst_n = 0;
-        enable_module = 0;
+        rst_n = 1;
         ui_in = 8'b0;
         uio_in = 8'b0;
 
         // Reset the system
         #100; 
-        rst_n = 1;
-        #100;
         rst_n = 0;
         #100;
-
-        // Enable the module
-        enable_module = 1;
+        rst_n = 1;
+        #100;
 
         // Simulate button presses
         repeat (10) begin
             simulate_btn_incAni = 1; 
             ui_in[0] = simulate_btn_incAni;
-            #1000;
+            #100000;
             simulate_btn_incAni = 0;
             ui_in[0] = simulate_btn_incAni;
-            #1000;
+            #100000;
 
-            simulate_btn_decAni = 1;
+            /*simulate_btn_decAni = 1;
             ui_in[1] = simulate_btn_decAni;
-            #1000;
+            #100000;
             simulate_btn_decAni = 0;
             ui_in[1] = simulate_btn_decAni;
-            #1000;
+            #100000;*/
 
             simulate_btn_incSpeed = 1;
             ui_in[2] = simulate_btn_incSpeed;
-            #1000;
+            #100000;
             simulate_btn_incSpeed = 0;
             ui_in[2] = simulate_btn_incSpeed;
-            #1000;
+            #100000;
 
             simulate_btn_decSpeed = 1;
             ui_in[3] = simulate_btn_decSpeed;
-            #1000;
+            #100000;
             simulate_btn_decSpeed = 0;
             ui_in[3] = simulate_btn_decSpeed;
-            #1000;
+            #100000
         end
-
+	#10000000
         // Finish simulation
         $finish;
     end

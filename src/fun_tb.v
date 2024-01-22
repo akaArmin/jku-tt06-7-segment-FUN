@@ -1,19 +1,30 @@
 `timescale 1ns / 1ps
-`include "tt_um_seven_segment_fun.v"
-module tt_um_seven_segment_fun1_tb;
+module fun_tb;
 
     // Inputs
+    
+
+    	
     reg [7:0] ui_in;
     reg [7:0] uio_in;
     reg ena;
     reg clk;
     reg rst_n;
-
+    
+    wire btn1_incAni;
+    wire btn2_decAni;
+    wire btn3_incSpeed;
+    wire btn4_decSpeed;
+    
+    reg btn1_incAni = ui_in[0];
+    reg btn2_decAni = ui_in[1];
+    reg btn3_incSpeed = ui_in[2];
+    reg btn4_decSpeed = ui_in[3];
     // Outputs
     wire [7:0] uo_out;
     wire [7:0] uio_out;
     wire [7:0] uio_oe;
-
+	
     // Instantiate the Unit Under Test (UUT)
     tt_um_seven_segment_fun1 uut (
         .ui_in(ui_in),    
@@ -32,7 +43,7 @@ module tt_um_seven_segment_fun1_tb;
     // Test procedure
     initial begin
         $dumpfile ("tt_um_seven_segment_fun1_tb.vcd"); 
-        $dumpvars (0, tt_um_seven_segment_fun1_tb);   
+        $dumpvars (0, fun_tb);   
 
         // Initialize Inputs
         clk = 0;
@@ -54,25 +65,25 @@ module tt_um_seven_segment_fun1_tb;
         // Simulate button presses
         // Assuming each button press increments or decrements the counter
         repeat (10) begin
-            ui_in[0] = 1; // Simulate button press for incAni
-            #200;
-            ui_in[0] = 0;
-            #200;
+            btn1_incAni = 1; // Simulate button press for incAni
+            #1000;
+            btn1_incAni = 0;
+            #1000;
 
-            ui_in[1] = 1; // Simulate button press for decAni
-            #200;
-            ui_in[1] = 0;
-            #200;
+            btn2_decAni = 1; // Simulate button press for decAni
+            #1000;
+            btn2_decAni = 0;
+            #1000;
 
-            ui_in[2] = 1; // Simulate button press for incSpeed
-            #200;
-            ui_in[2] = 0;
-            #200;
+            btn3_incSpeed[2] = 1; // Simulate button press for incSpeed
+            #1000;
+            btn3_incSpeed[2] = 0;
+            #1000;
 
-            ui_in[3] = 1; // Simulate button press for decSpeed
-            #200;
-            ui_in[3] = 0;
-            #200;
+            btn4_decSpeed= 1; // Simulate button press for decSpeed
+            #1000;
+            btn4_decSpeed = 0;
+            #1000;
         end
 
         // Finish simulation

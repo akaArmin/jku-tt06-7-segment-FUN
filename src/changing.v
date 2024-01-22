@@ -1,4 +1,5 @@
 `default_nettype none 
+`timescale 1ns / 1ps
 `ifndef __changing__
 `define __changing__
 

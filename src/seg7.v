@@ -12,6 +12,7 @@
 */
 
 `default_nettype none 
+`timescale 1ns / 1ps
 `ifndef __seg7__
 `define __seg7__
 

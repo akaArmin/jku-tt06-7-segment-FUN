@@ -452,7 +452,6 @@ module seg7 (
                     1:  segments = 7'b1110110;
                     2:  segments = 7'b1111111;
                     3:  segments = 7'b1110110;
-                    4:  segments = 7'b1000000;
                     default:
                         segments = 7'b0000000;
                 endcase

@@ -71,7 +71,7 @@ module changing (
                 (animation == 6'b011010) ? 16 :  // ani26, Random+ 3
                 (animation == 6'b011011) ? 16 :  // ani27, Random Numbers
                 (animation == 6'b011100) ? 32 :  // ani28, Random Numbers+
-                (animation == 6'b011101) ? 5 :   // ani29, Pulse
+                (animation == 6'b011101) ? 4 :   // ani29, Pulse
                 (animation == 6'b011110) ? 11 :  // ani30, Birthday
                 (animation == 6'b011111) ? 32 :  // ani31, Random++
                // New animations ST_ANI32 to ST_ANI50

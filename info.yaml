@@ -9,6 +9,10 @@ project:
     - tt_um_seven_segment_fun1.v
     - seg7.v
     - changing.v
+    - button.v
+    - cells.v
+    - debouncer.v
+    - synchronizer.v
   top_module:  "tt_um_seven_segment_fun1"      # Put the name of your top module here, must start with "tt_um_". Make it unique by including your github username
 
 # How many tiles your design occupies? A single tile is about 167x108 uM.

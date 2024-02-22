@@ -99,9 +99,9 @@ module changing (
                 (animation == 6'b110101) ? 2 :   // ani53
                 (animation == 6'b110110) ? 2 :   // ani54
                 (animation == 6'b110111) ? 2 :   // ani55
-                (animation == 6'b111000) ? 2 :   // ani56
+            /*    (animation == 6'b111000) ? 2 :   // ani56
                 (animation == 6'b111001) ? 2 :   // ani57
-            /*    (animation == 6'b111010) ? 2 :   // ani58
+                (animation == 6'b111010) ? 2 :   // ani58
                 (animation == 6'b111011) ? 2 :   // ani59
                 (animation == 6'b111100) ? 2 :   // ani60
                 (animation == 6'b111101) ? 2 :   // ani61

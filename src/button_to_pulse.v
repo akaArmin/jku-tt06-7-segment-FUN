@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module button_to_pulse(
+module button_to_pulse (
     input wire clk,            // Clock input
     input wire reset,          // Reset input
     input wire button_in,      // Button input signal

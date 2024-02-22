@@ -3,7 +3,9 @@
 .vscode
 *.vcd
 runs
-src/sim_build
-src/__pycache__/
-src/results.xml
+tt_submission
 src/user_config.tcl
+test/sim_build
+test/__pycache__/
+test/results.xml
+test/gate_level_netlist.v

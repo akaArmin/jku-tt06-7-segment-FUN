@@ -32,8 +32,7 @@ module tt_um_seven_segment_fun1 (
     .one_shot_pulse(debounced_btn1_incAni)
     );
     
-    button db_btn2( tt_um_seven_segment_fun1_tb starts on line fun_tb.v:3.
-
+    button db_btn2(
     .clk(clk), 
     .reset(reset), 
     .button_in(ui_in[1]), 

@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+
 module synchronizer(
     input wire clk,           // Clock input
     input wire async_signal,  // Asynchronous signal input

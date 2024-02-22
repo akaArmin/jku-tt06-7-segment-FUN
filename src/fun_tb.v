@@ -89,9 +89,9 @@ module tt_um_seven_segment_fun1_tb;
             #100000;
             simulate_btn_decSpeed = 0;
             ui_in[3] = simulate_btn_decSpeed;
-            #100000
+            #100000;
         end
-	#10000000
+	#10000000;
         // Finish simulation
         $finish;
     end

@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+
 module debouncer (
     input wire clk,             
     input wire reset,           

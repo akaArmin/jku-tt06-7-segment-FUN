@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
-`include "debouncer.v"
-`include "synchronizer.v"
-`include "button_to_pulse.v"
+// `include "debouncer.v"
+// `include "synchronizer.v"
+// `include "button_to_pulse.v"
 
 module button(
     input wire clk, 

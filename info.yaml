@@ -19,6 +19,7 @@ project:
     - "seg7.v"
     - "changing.v"
     - "button.v"
+    - "button_to_pulse.v"
     - "cells.v"
     - "debouncer.v"
     - "synchronizer.v"

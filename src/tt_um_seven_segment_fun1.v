@@ -3,6 +3,10 @@
 `include "seg7.v"
 `include "changing.v"
 `include "button.v"  // Include debouncer module
+`include "button_to_pulse.v"
+`include "cells.v"
+`include "debouncer.v"
+`include "synchronizer.v"
 
 module tt_um_seven_segment_fun1 (
     input wire [7:0] ui_in,    

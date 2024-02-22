@@ -807,7 +807,7 @@ module seg7 (
                     default:
                         segments = 7'b0000000;
                 endcase 
-
+/*
             58: // Puls
                 case(counter)
                     //                7654321
@@ -834,7 +834,7 @@ module seg7 (
                     default:
                         segments = 7'b0000000;
                 endcase
-            /*
+            
             61: // Puls
                 case(counter)
                     //                7654321

@@ -3,12 +3,12 @@
 /* This testbench just instantiates the module and makes some convenient wires
    that can be driven / tested by the cocotb test.py.
 */
-`include "..src/seg7.v"
-`include "..src/changing.v"
-`include "..src/button.v"
-`include "..src/button_to_pulse.v"
-`include "..src/debouncer.v"
-`include "..src/synchronizer.v"
+`include "../src/seg7.v"
+`include "../src/changing.v"
+`include "../src/button.v"
+`include "../src/button_to_pulse.v"
+`include "../src/debouncer.v"
+`include "../src/synchronizer.v"
 
 
 module tb ();

@@ -867,4 +867,4 @@ module seg7 (
         endcase
     end
 endmodule
-`endif
+//`endif

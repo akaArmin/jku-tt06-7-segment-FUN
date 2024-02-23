@@ -4,12 +4,12 @@
    that can be driven / tested by the cocotb test.py.
 */
 
-`include "seg7.v"
-`include "changing.v"
-`include "button.v"
-`include "button_to_pulse.v"
-`include "debouncer.v"
-`include "synchronizer.v"
+//`include "seg7.v"
+//`include "changing.v"
+//`include "button.v"
+//`include "button_to_pulse.v"
+//`include "debouncer.v"
+//`include "synchronizer.v"
 
 module tb ();
 

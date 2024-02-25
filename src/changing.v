@@ -53,12 +53,12 @@ module changing (
                 (animation == 6'b101011) ? 4 :   // ani43
                 (animation == 6'b101100) ? 4 :   // ani44
                 (animation == 6'b101101) ? 4 :   // ani45
-                (animation == 6'b101110) ? 4 :   // ani46
+            /*    (animation == 6'b101110) ? 4 :   // ani46
                 (animation == 6'b101111) ? 4 :   // ani47
                 (animation == 6'b110000) ? 4 :   // ani48
                 (animation == 6'b110001) ? 4 :   // ani49
                 (animation == 6'b110010) ? 4 :   // ani50
-            /*    (animation == 6'b110011) ? 2 :   // ani51
+                (animation == 6'b110011) ? 2 :   // ani51
                 (animation == 6'b110100) ? 2 :   // ani52
                 (animation == 6'b110101) ? 2 :   // ani53
                 (animation == 6'b110110) ? 2 :   // ani54

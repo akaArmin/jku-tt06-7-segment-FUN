@@ -12,7 +12,7 @@
 */
 
 `default_nettype none 
-`timescale 1ns / 1ps
+//`timescale 1ns / 1ps
 
 module seg7 (
     input wire [5:0] counter,

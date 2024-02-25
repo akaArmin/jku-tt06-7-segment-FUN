@@ -19,6 +19,7 @@ module seg7 (
     input wire [5:0] animation,
     output reg [6:0] segments
 );
+
     always @(*) begin
         case(animation)
             0: // 0 to 9

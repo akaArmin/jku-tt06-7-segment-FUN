@@ -1,7 +1,5 @@
 `default_nettype none 
 `timescale 1ns / 1ps
-`ifndef __changing__
-`define __changing__
 
 module changing (
     input wire [5:0] animation,
@@ -76,5 +74,3 @@ module changing (
             */  6'b111111;  // default
 
 endmodule
-`endif
-

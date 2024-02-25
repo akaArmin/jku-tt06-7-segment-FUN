@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module tt_um_seven_segment_fun1_tb;
+module fun_tb;
 
     // Inputs
     reg [7:0] ui_in;
@@ -45,8 +45,8 @@ module tt_um_seven_segment_fun1_tb;
 
     // Test procedure
     initial begin
-        $dumpfile ("tt_um_seven_segment_fun1_tb.vcd"); 
-        $dumpvars (0, tt_um_seven_segment_fun1_tb);   
+        $dumpfile ("fun_tb.vcd"); 
+        $dumpvars (0, fun_tb);   
 
         // Initialize Inputs
         clk = 0;
@@ -62,6 +62,7 @@ module tt_um_seven_segment_fun1_tb;
         #100;
 
         // Simulate button presses
+        /*
         repeat (10) begin
             simulate_btn_incAni = 1; 
             ui_in[0] = simulate_btn_incAni;
@@ -69,29 +70,51 @@ module tt_um_seven_segment_fun1_tb;
             simulate_btn_incAni = 0;
             ui_in[0] = simulate_btn_incAni;
             #100000;
-
-            /*simulate_btn_decAni = 1;
+	end
+	#1000000;
+	repeat (10) begin
+            simulate_btn_decAni = 1;
             ui_in[1] = simulate_btn_decAni;
             #100000;
             simulate_btn_decAni = 0;
             ui_in[1] = simulate_btn_decAni;
-            #100000;*/
-
+            #100000;
+	end
+        */ 
+        
+        repeat (10) begin
+            simulate_btn_incAni = 1; 
+            ui_in[0] = simulate_btn_incAni;
+            #100000;
+            simulate_btn_incAni = 0;
+            ui_in[0] = simulate_btn_incAni;
+            #100000;
+	end
+	
+	#2000000;
+	/*
+        repeat (10) begin
             simulate_btn_incSpeed = 1;
             ui_in[2] = simulate_btn_incSpeed;
             #100000;
             simulate_btn_incSpeed = 0;
             ui_in[2] = simulate_btn_incSpeed;
             #100000;
-
+	end   
+        
+          
+	*/
+	repeat (6) begin
             simulate_btn_decSpeed = 1;
             ui_in[3] = simulate_btn_decSpeed;
             #100000;
             simulate_btn_decSpeed = 0;
             ui_in[3] = simulate_btn_decSpeed;
             #100000;
-        end
-	#10000000;
+	end 
+         
+	#40000000;
+	
         // Finish simulation
         $finish;
     end

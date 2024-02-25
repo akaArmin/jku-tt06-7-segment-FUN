@@ -1,11 +1,12 @@
 `default_nettype none
 
-// `include "seg7.v"
-// `include "changing.v"
-// `include "button.v"
-// `include "button_to_pulse.v"
-// `include "debouncer.v"
-// `include "synchronizer.v"
+/*
+`include "seg7.v"
+`include "changing.v"
+`include "button.v"
+`include "button_to_pulse.v"
+`include "debouncer.v"
+`include "synchronizer.v"*/
 
 module tt_um_seven_segment_fun1 (
     input wire [7:0] ui_in,    
@@ -57,10 +58,6 @@ module tt_um_seven_segment_fun1 (
     );
     
 
-    // assign ui_in[7:4] = 1'bz;
-    // assign uio_in[7:0] = 1'bz;
-
-
    // 7-Segment-Display:
     wire [6:0] led_out;             // 7-Segment output
     assign uo_out[6:0] = led_out;   // Assign Pins
@@ -69,7 +66,7 @@ module tt_um_seven_segment_fun1 (
     // Use bidirectionals as outputs
     assign uio_oe = 8'b11111111;
 
-    // Put bottom 8 bits of second counter out on the bidirectional gpio
+    // Put bottom 8 bits of the counter out on the bidirectional gpio
     assign uio_out = counter[7:0];
 
     // External clock is 10MHz, so need 24 bit counter
@@ -79,8 +76,8 @@ module tt_um_seven_segment_fun1 (
     wire [5:0] counterMAX;
 
     // FSM states - Animation
-    localparam ST_ANI0   = 6'b000000;
-    localparam ST_ANImax = 6'b111111;
+    localparam ST_ANI0   = 6'b000000;	// Animation 0
+    localparam ST_ANImax = 6'b110010;	// Animation 50
 
     parameter ANI_BIT = 6;
     reg [ANI_BIT-1:0] animation;
@@ -90,16 +87,25 @@ module tt_um_seven_segment_fun1 (
     reg [COUNTER_BIT-1:0] compare = 10_000_000;      // Default 1 sek at 10MHz
     reg [COUNTER_BIT-1:0] next_compare = 10_000_000;
 
-    localparam comMax = 25'b1001000011110101011000000;   // Maximum value for compare
+
+    localparam comMax = 25'b1001000011110101011000000;   // Maximum value for compare 19 Mio.
     localparam comMin = 1_000_000;    // Minimum value for compare
     localparam comInc = 1_000_000;    // Stepsize
-
+/*
+    // Testbench values!
+    reg [COUNTER_BIT-1:0] compare = 10_000;      // tb value!
+    reg [COUNTER_BIT-1:0] next_compare = 10_000;
+    localparam comMax = 25'b0000000000100101000111000;   // tb value! 19k
+    localparam comMin = 1_000;    // tb value!
+    localparam comInc = 1_000;    // tb value!
+*/   
     // Counter:
     always @(posedge clk or posedge reset) begin: register_process_counter
         if (reset) begin                    // If reset, set counter to 0
             counter <= {COUNTER_BIT{1'b0}};
             digit <= 0;
             compare <= 10_000_000;
+            //compare <= 10_000;	// tb value!
         end else begin
             counter <= next_counter;
             digit <= next_digit;
@@ -111,14 +117,14 @@ module tt_um_seven_segment_fun1 (
     	next_counter = counter;
         next_digit = digit;
 
-        if (counter == compare) begin       // If secound_counter equals the value of compare
-            next_counter = 0;               // Reset the secound_counter
+        if (counter >= compare) begin       // If next_counter equals the value of compare
+            next_counter = 0;               // Reset the next_counter
             next_digit = digit + 1;         // Increment digit
             if (digit >= counterMAX) begin
                 next_digit = 0;
             end
         end else begin
-            next_counter = counter + 1;     // Increment secound_counter
+            next_counter = counter + 1;     // Increment next_counter
         end
     end
 

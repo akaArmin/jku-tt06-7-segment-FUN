@@ -11,10 +11,10 @@
       -- 4 --
 */
 
-//`default_nettype none 
+`default_nettype none 
 `timescale 1ns / 1ps
-//`ifndef __seg7__
-//`define __seg7__
+`ifndef __seg7__
+`define __seg7__
 
 module seg7 (
     input wire [5:0] counter,

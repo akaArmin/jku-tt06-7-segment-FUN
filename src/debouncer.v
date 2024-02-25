@@ -19,7 +19,7 @@ module debouncer (
     reg next_debounced_signal;
 
     // Debounce time constant and counter length
-    parameter DEBOUNCE_TIME = 100; 
+    parameter DEBOUNCE_TIME = 700_000;  // 70ms
     parameter COUNTER_LEN = 20;      
 
     // FSM Process for state transition and output

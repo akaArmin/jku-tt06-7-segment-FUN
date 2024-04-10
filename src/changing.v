@@ -41,9 +41,9 @@ module changing (
                // New animations ST_ANI32 to ST_ANI50
                 (animation == 6'b100000) ? 4 :   // ani32, Pulse
                 (animation == 6'b100001) ? 8 :   // ani33, Online try
-                (animation == 6'b100010) ? 4 :   // ani34
+            /*    (animation == 6'b100010) ? 4 :   // ani34
                 (animation == 6'b100011) ? 4 :   // ani35
-            /*    (animation == 6'b100100) ? 4 :   // ani36
+                (animation == 6'b100100) ? 4 :   // ani36
                 (animation == 6'b100101) ? 4 :   // ani37
                 (animation == 6'b100110) ? 4 :   // ani38
                 (animation == 6'b100111) ? 4 :   // ani39

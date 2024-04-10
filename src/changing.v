@@ -43,12 +43,12 @@ module changing (
                 (animation == 6'b100001) ? 8 :   // ani33, Online try
                 (animation == 6'b100010) ? 4 :   // ani34
                 (animation == 6'b100011) ? 4 :   // ani35
-                (animation == 6'b100100) ? 4 :   // ani36
+            /*    (animation == 6'b100100) ? 4 :   // ani36
                 (animation == 6'b100101) ? 4 :   // ani37
                 (animation == 6'b100110) ? 4 :   // ani38
                 (animation == 6'b100111) ? 4 :   // ani39
                 (animation == 6'b101000) ? 4 :   // ani40
-            /*    (animation == 6'b101001) ? 4 :   // ani41
+                (animation == 6'b101001) ? 4 :   // ani41
                 (animation == 6'b101010) ? 4 :   // ani42
                 (animation == 6'b101011) ? 4 :   // ani43
                 (animation == 6'b101100) ? 4 :   // ani44
